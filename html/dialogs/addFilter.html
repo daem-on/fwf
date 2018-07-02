@@ -1,0 +1,29 @@
+<link rel="stylesheet" type="text/css" href="../style.css">
+<h2>Add filter</h2>
+<textarea id="filter"></textarea>
+<a class="toolbutton" onclick="add()">Add</a>
+<style>
+    h2 {
+        margin: 0 0;
+    }
+    body {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-content: flex-start;
+    }
+    textarea {
+        flex-grow: 1;
+    }
+</style>
+
+<script>
+const {ipcRenderer} = require('electron');
+
+function add() {
+    ipcRenderer.send("toMainWindow", {
+        channel: "addFilter",
+        value: document.getElementById("filter").value
+    });
+}
+</script>

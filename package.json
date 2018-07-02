@@ -1,0 +1,17 @@
+{
+  "name": "fwf",
+  "version": "1.0.0",
+  "description": "fun with ffmpeg",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^2.0.2"
+  },
+  "dependencies": {
+    "fluent-ffmpeg": "^2.1.2"
+  }
+}

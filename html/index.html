@@ -1,0 +1,53 @@
+<script>window.$ = window.jQuery = require('./lib/jquery-3.3.1.min.js');</script>
+<script src="lib/timeline.js"></script>
+<script src="lib/vue.min.js"></script>
+<script src="lib/customLabels.js"></script>
+<link rel="stylesheet" type="text/css" href="lib/timeline.css">
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<div id="layout">
+    <div id="toolbar">
+        <a onclick="openFile()" class="toolButton">Open File</a>
+        <a onclick="initRender()" class="toolButton">Render</a>
+    </div>
+    <div id="mainview">
+        <div id="sources">
+            <div class="source" v-for="(source, index) in sources" :kex="source.id">
+                {{ source.title }} <i>{{ source.path }}</i>
+                <a @click="deleteItem(index)" class="shortButton">×</a>
+                <a @click="addItem(index)" class="shortButton">+</a>
+            </div>
+        </div>
+        <div id="inspector">
+            <div v-if="!properties.start">Nothing selected.</div>
+            <div v-if="properties.start">
+                Valid: {{ properties.valid }} <br>
+                Original duration: {{ properties.maxduration }} <br>
+                Start: {{ back(properties.start) }} <br>
+                End: {{ back(properties.end) }} <br>
+                Filters: <br>
+                <div v-for="filter in properties.filters">
+                    {{ filter }}
+                </div>
+
+                Seek: <input v-model="properties.seek">
+                <button @click="setSeek()" type="number">Set</button> <br>
+            </div>
+            <a class="toolButton" onclick="openFilterWindow()">Add filter</a>
+        </div>
+    </div>
+    <div id="timeview">
+        <div id="progress">
+            Progress bars
+            <progress id="bar" max="100" value="0">
+        </div>
+        <div id="timelinecont"></div>
+    </div>
+</div>
+
+<script>
+const {ipcRenderer} = require('electron');
+const {dialog, BrowserWindow} = require('electron').remote;
+</script>
+<script src="app.js"></script>
+<script src="managers.js"></script>
