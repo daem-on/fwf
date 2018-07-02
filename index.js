@@ -1,4 +1,5 @@
-const {app, BrowserWindow, ipcMain} = require('electron')
+const {app, BrowserWindow, ipcMain, dialog} = require('electron')
+const os = require('os')
 const DEBUG_MODE = false;
 let win;
 
@@ -31,6 +32,11 @@ app.on('ready', createWindow)
 const VideoManager = require("./videoManager.js")
 
 var path = app.getAppPath();
+
+if (os.platform() != 'darwin') {
+    dialog.showErrorBox("Error", "This sofware is still in development, and only contains ffmpeg binary files for macOS.")
+    app.quit()
+}
 
 var vidManager = new VideoManager(
     path + "/bin/ffmpeg",
