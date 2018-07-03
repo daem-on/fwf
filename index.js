@@ -38,10 +38,13 @@ if (os.platform() != 'darwin') {
     app.quit()
 }
 
-var vidManager = new VideoManager(
-    path + "/bin/ffmpeg",
-    path + "/bin/ffprobe",
-    path + "/wd/");
+if (os.platform() == "darwin") {
+    var vidManager = new VideoManager(
+        path + "/bin/darwin/ffmpeg",
+        path + "/bin/darwin/ffprobe",
+        path + "/wd/");
+}
+
 vidManager.setScheme(
     "1280x720",
     ".mp4",
