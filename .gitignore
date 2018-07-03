@@ -61,3 +61,7 @@ typings/
 .next
 
 *.DS_Store
+
+# large binary files and workdir
+/bin
+/wd
