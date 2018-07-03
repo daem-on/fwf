@@ -1,29 +1,73 @@
 <link rel="stylesheet" type="text/css" href="../style.css">
-<h2>Add filter</h2>
-<textarea id="filter"></textarea>
-<a class="toolbutton" onclick="add()">Add</a>
+<link rel="stylesheet" type="text/css" href="../lib/jsoneditor.min.css">
+<link rel="stylesheet" type="text/css" href="../lib/darktheme.css">
+<script src="../lib/jsoneditor-minimalist.min.js"></script>
+
+<h2>Filter editor</h2>
+
+<div id="view">
+    <div id="jsoneditor"></div>
+    <div id="presets">
+        <div style="margin-bottom:30px;">
+            <h3>Presets</h3>
+            <a onclick="loadTemplate('fade')">Fade</a> <br>
+            <a onclick="loadTemplate('drawtext')">Drawtext</a> <br>
+        </div>
+        <a class="toolbutton" onclick="add()">Add filter</a>
+    </div>
+</div>
+
 <style>
-    h2 {
-        margin: 0 0;
-    }
-    body {
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        align-content: flex-start;
-    }
-    textarea {
-        flex-grow: 1;
-    }
+#view > div {
+    flex: 1;
+    margin: 10px;
+}
+h3 {
+    margin: 0;
+}
+h2 {
+    margin: 10px;
+}
+#view {
+    display: flex;
+    flex-direction: row;
+}
+body {
+    height: 400px;
+}
+a {
+    cursor: pointer;
+}
 </style>
 
 <script>
 const {ipcRenderer} = require('electron');
 
+templates = {}
+
+templates.fade = {filter:"fade", options:["in",0,30]};
+templates.drawtext = {filter:"drawtext", options:{
+    fontfile:"/path/to/fontfile.ttf",
+    text:"Text",
+    fontsize:30,
+}};
+
+var container = document.getElementById("jsoneditor");
+var options = {
+    mode: 'tree',
+    search: false,
+    navigationBar: false,
+};
+var editor = new JSONEditor(container, options, {filter: "", options:{}});
+
+function loadTemplate(name) {
+    editor.set(templates[name])
+}
+
 function add() {
     ipcRenderer.send("toMainWindow", {
         channel: "addFilter",
-        value: document.getElementById("filter").value
+        value: editor.get(),
     });
 }
 </script>

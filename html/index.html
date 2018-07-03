@@ -28,7 +28,7 @@
                 Filters: <br>
                 <ul>
                     <li v-for="(filter, index) in properties.filters">
-                        {{ filter }}
+                        {{ JSON.stringify(filter) }}
                         <a class="shortButton" @click="removeFilter(index)">×</a>
                     </li>
                 </ul>
@@ -51,6 +51,7 @@
 <script>
 const {ipcRenderer} = require('electron');
 const {dialog, BrowserWindow} = require('electron').remote;
+const os = require('os');
 </script>
 <script src="app.js"></script>
 <script src="managers.js"></script>

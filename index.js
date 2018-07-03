@@ -15,7 +15,7 @@ app.on('ready', () => {
 });
 
 function createWindow () {
-    win = new BrowserWindow({width: 800, height: 600, show: false})
+    win = new BrowserWindow({width: 1000, height: 800, show: false})
 
     win.loadFile('html/index.html')
     //win.setProgressBar(0.7)
@@ -33,16 +33,21 @@ const VideoManager = require("./videoManager.js")
 
 var path = app.getAppPath();
 
-if (os.platform() != 'darwin') {
-    dialog.showErrorBox("Error", "This sofware is still in development, and only contains ffmpeg binary files for macOS.")
-    app.quit()
-}
-
 if (os.platform() == "darwin") {
     var vidManager = new VideoManager(
         path + "/bin/darwin/ffmpeg",
         path + "/bin/darwin/ffprobe",
         path + "/wd/");
+} else if (os.platform() == "win32" && os.arch() == "x64") {
+    var vidManager = new VideoManager(
+        path + "/bin/win64/ffmpeg.exe",
+        path + "/bin/win64/ffprobe.exe",
+        path + "/wd/");
+} else {
+    dialog.showErrorBox(
+        "System not supported",
+        "This platform or architecture is currently not supported."
+    )
 }
 
 vidManager.setScheme(

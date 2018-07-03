@@ -45,8 +45,13 @@ timeline.setCustomTime(over(0));
 timeline.setVisibleChartRange(over(0), over(120))
 
 function getTitle(path) {
+    let exp;
+
     // this is ridiculous
-    let exp = RegExp(/\/([^/]*)\.\w*$/)
+    if (os.platform == "darwin") // forward slash
+        exp = RegExp(/\/([^/]*)\.\w*$/)
+    else if (os.platform == "win32") // backslash
+        exp = RegExp(/\\([^\\]*)\.\w*$/)
     return exp.exec(path)[1];
 }
 
@@ -66,7 +71,7 @@ function getSelected() {
 
 let filterWin;
 function openFilterWindow() {
-    filterWin = new BrowserWindow({width: 400, height: 600})
+    filterWin = new BrowserWindow({width: 800, height: 600})
     filterWin.on('closed', () => {
         filterWin = null
     });
