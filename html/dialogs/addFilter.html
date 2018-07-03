@@ -28,6 +28,12 @@
         <a class="toolbutton" onclick="add()">Add filter</a>
     </div>
 </div>
+<div id="help">
+    This editor lets you write filters that the renderer will pass to ffmpeg. These should
+    be written in JSON using the JSON editor on the left. Several presets
+    are provided on the right. The filters need to follow the filter syntax
+    of fluent-ffmpeg.
+</div>
 
 <style>
 #view > div {
@@ -49,6 +55,11 @@ body {
 }
 a {
     cursor: pointer;
+}
+#help {
+    padding-left: 10px;
+    font-size: 90%;
+    color: #3a424f;
 }
 </style>
 

@@ -73,6 +73,7 @@ body {
 }
 .timeline-frame {
     border: 1px solid #333 !important;
+    /* background-color: #282e38; */
 }
 #progress, #sources, #inspector {
     border: 1px solid #333;
