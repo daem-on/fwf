@@ -26,14 +26,17 @@
                 Start: {{ back(properties.start) }} <br>
                 End: {{ back(properties.end) }} <br>
                 Filters: <br>
-                <div v-for="filter in properties.filters">
-                    {{ filter }}
-                </div>
+                <ul>
+                    <li v-for="(filter, index) in properties.filters">
+                        {{ filter }}
+                        <a class="shortButton" @click="removeFilter(index)">×</a>
+                    </li>
+                </ul>
 
                 Seek: <input v-model="properties.seek">
                 <button @click="setSeek()" type="number">Set</button> <br>
+                <a class="toolButton" onclick="openFilterWindow()">Add filter</a>
             </div>
-            <a class="toolButton" onclick="openFilterWindow()">Add filter</a>
         </div>
     </div>
     <div id="timeview">

@@ -28,10 +28,6 @@ class VideoManager {
     }
 
     setCallbacks(command, cb) {
-        command.on("error", (err) => {
-            throw err;
-        })
-
         if (cb.progress) command.on("progress", cb.progress)
         if (cb.start) command.on("start", cb.start)
         if (cb.end) command.on("end", cb.end)
@@ -53,14 +49,17 @@ class VideoManager {
 
     // go through all workFiles and render
     renderAll(index, callbacks) {
-        if (index >= this.workFiles.length) {
-            // at the end
-            return Promise.resolve();
-        }
+        if (this.workFiles.length <= 0)
+            return Promise.reject(new Error("Files list empty"));
+
+        if (index >= this.workFiles.length)
+            return Promise.resolve(); // at the end
+
         // not at the end, rendering "index"
-        return this.render(index, callbacks).then(() => {
+        return this.render(index, callbacks)
+        .then(() => {
             return this.renderAll(index+1, callbacks);
-        });
+        })
     }
 
     // renders a workFile to be a masterFile

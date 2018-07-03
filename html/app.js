@@ -79,6 +79,8 @@ function addFilter(filter) {
         old.push(filter);
         timeline.changeItem(timeline.getSelection()[0].row,
         {filters: old})
+        updateInspect();
+        filterWin.close();
     }
 }
 
@@ -108,7 +110,6 @@ function initRender() {
         });
     }
 
-    console.log(workFiles);
     ipcRenderer.send("setWorkFiles", workFiles);
     ipcRenderer.send("make");
 }
@@ -126,6 +127,10 @@ ipcRenderer.on("relay", (event, arg) => {
     if (arg.channel == "addFilter") {
         addFilter(arg.value);
     }
+})
+
+ipcRenderer.on("error", (event, arg) => {
+    dialog.showErrorBox("Rendering Error", arg)
 })
 
 window.addEventListener("keyup", keyup)
@@ -198,7 +203,6 @@ function openFile() {
     for (var i = 0; i < array.length; i++) {
         var path = array[i];
         getMeta(path).then((meta) => {
-            console.log(path)
             imported.push({
                 id: ++iid,
                 duration: meta.format.duration,

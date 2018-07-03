@@ -20,6 +20,14 @@ input {
     color: #ddd;
     border: none;
 }
+progress {
+    position: absolute;
+    margin: 1px;
+    margin-left: 5px;
+}
+li {
+    list-style-type: none;
+}
 
 div.timeline-axis-text {
     color: white;
@@ -63,8 +71,14 @@ div.timeline-navigation-delete {
 body {
     margin: 0;
 }
-#progress, .timeline-frame {
+.timeline-frame {
     border: 1px solid #333 !important;
+}
+#progress, #sources, #inspector {
+    border: 1px solid #333;
+}
+#inspector {
+    margin-left: 10px;
 }
 #mainview {
     flex-grow: 1;
@@ -74,13 +88,13 @@ body {
 }
 #mainview div {
     flex: 1;
-    padding: 10px;
+    padding: 5px;
 }
 #progress {
     margin-bottom: 10px;
     padding: 5px;
 }
-#timeview {
+#timeview, #mainview {
     padding: 10px;
 }
 #layout {

@@ -84,4 +84,5 @@ ipcMain.on('make', (event) => {
     vidManager.renderAll(0, callback)
     .then(() => {return vidManager.stitchMaster(callback)})
     .then(() => {event.sender.send("done")})
+    .catch((err) => {event.sender.send("error", err.message)})
 })

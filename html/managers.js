@@ -31,5 +31,12 @@ var inspectorManager = new Vue({
                 start: over(back(getSelected().start) + seek)
             });
         },
+        removeFilter: function(index) {
+            filters = this.properties.filters;
+            filters.splice(index, 1);
+            timeline.changeItem(timeline.getSelection()[0].row, {
+                filters: filters,
+            });
+        }
     }
 })
