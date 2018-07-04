@@ -231,6 +231,9 @@ function keyup(e) {
         split();
         updateInspect();
     }
+    if (e.key == "p") {
+        preview();
+    }
 }
 
 function openFile() {

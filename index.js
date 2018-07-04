@@ -66,8 +66,8 @@ server = new PreviewServer(vidManager);
 
 // Settings for preview server
 
-ipcMain.on('previewFilters', (event, arg) => {
-    server.filters = arg;
+ipcMain.on('previewSettings', (event, arg) => {
+    server.settings = arg;
 })
 
 // Messaging between windows

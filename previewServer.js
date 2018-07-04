@@ -7,7 +7,7 @@ const express = require('express');
 class PreviewServer {
     constructor(videoManager) {
         var app = this.app = express();
-        this.filters = {}; // this should be changed when rendering a filtered video
+        this.settings = {}; // this should be changed when rendering a filtered video
 
         app.get('/', function(req, res) {
             res.send('fwf preview server');
@@ -23,13 +23,14 @@ class PreviewServer {
             .then(() => {res.end();})
         });
 
-        app.get('/filtered/:file/:seek', (req, res) => {
+        app.get('/filtered', (req, res) => {
+            if (DEBUG_MODE) console.log(this.settings)
+
             res.contentType('mp4');
-            var path = __dirname + "/wd/" + req.params.file;
             videoManager.renderPreview({
-                path: path,
-                seek: req.params.seek,
-                filters: this.filters,
+                path: this.settings.path,
+                seek: this.settings.seek,
+                filters: this.settings.filters,
             }, res)
             .then(() => {res.end();})
         })

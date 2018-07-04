@@ -77,10 +77,10 @@ body {
     border: 1px solid #333 !important;
     /* background-color: #282e38; */
 }
-#progress, #sources, #inspector {
+#progress, #sources, #inspector, #preview-box {
     border: 1px solid #333;
 }
-#inspector {
+#inspector, #preview-box {
     margin-left: 10px;
 }
 #mainview {
@@ -109,14 +109,35 @@ body {
 #toolbar {
     padding: 10px;
 }
+#preview-box {
+    width: 490px;
+    text-align: center;
+}
+
+video {
+    background: #000;
+}
+
+.toolButton .material-icons {
+    font-size: 18;
+    padding-right: 3px;
+    position: relative;
+    top: 3px;
+}
+.shortButton .material-icons {
+    font-size: 20;
+}
+
 .shortButton {
     border: 1px solid white;
     display: inline-block;
-    padding: 0px 5px;
+    /* padding: 0px 5px; */
     margin: 3px;
     font-size: 80%;
     cursor: default;
     -webkit-user-select: none;
+    position: relative;
+    top: 5px;
 }
 .toolButton {
     border: 1px solid white;
