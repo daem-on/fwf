@@ -2,17 +2,21 @@ const {app, BrowserWindow, ipcMain, dialog} = require('electron')
 const os = require('os')
 const DEBUG_MODE = false;
 let win;
+let splash;
 
 app.on('ready', () => {
-    splash = new BrowserWindow({width: 400, height: 270, transparent: true, frame: false, alwaysOnTop: true, resizable: false});
-    splash.loadFile("html/splash.html");
-
+    showSplash();
     createWindow();
     win.once('ready-to-show', () => {
         splash.destroy();
         win.show();
     });
 });
+
+function showSplash() {
+    splash = new BrowserWindow({width: 400, height: 270, transparent: true, frame: false, alwaysOnTop: true, resizable: false});
+    splash.loadFile("html/splash.html");
+}
 
 function createWindow () {
     win = new BrowserWindow({width: 1000, height: 800, show: false})
@@ -28,6 +32,10 @@ function createWindow () {
 }
 
 app.on('ready', createWindow)
+
+ipcMain.on('showSplash', (event, arg) => {
+    showSplash();
+})
 
 const VideoManager = require("./videoManager.js")
 const PreviewServer = require("./previewServer.js")

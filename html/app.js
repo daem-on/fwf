@@ -257,6 +257,10 @@ function openFile() {
     }
 }
 
+function showSplash() {
+    ipcRenderer.send("showSplash");
+}
+
 function save() {
     var data = {
         imported: imported,
