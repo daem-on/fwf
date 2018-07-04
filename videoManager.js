@@ -131,6 +131,23 @@ class VideoManager {
         })
     }
 
+    renderPreview(options, stream) {
+        return new Promise((resolve, reject) => {
+            var command = ffmpeg()
+            if (options.filters) command.videoFilters(options.filters);
+
+            command.input(options.path)
+            .on("end", resolve)
+            .on("error", reject)
+            .size("480x?")
+            .format("mp4")
+            .outputOptions('-movflags frag_keyframe+empty_moov') // seekability magic
+            .videoCodec("libx264")
+            .seekInput(options.seek)
+            .pipe(stream, {end:true});
+        })
+    }
+
     fromScheme(command) {
         let sch = this.scheme;
 

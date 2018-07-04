@@ -30,16 +30,19 @@ function createWindow () {
 app.on('ready', createWindow)
 
 const VideoManager = require("./videoManager.js")
+const PreviewServer = require("./previewServer.js")
 
 var path = app.getAppPath();
 
+var vidManager;
+
 if (os.platform() == "darwin") {
-    var vidManager = new VideoManager(
+    vidManager = new VideoManager(
         path + "/bin/darwin/ffmpeg",
         path + "/bin/darwin/ffprobe",
         path + "/wd/");
 } else if (os.platform() == "win32" && os.arch() == "x64") {
-    var vidManager = new VideoManager(
+    vidManager = new VideoManager(
         path + "/bin/win64/ffmpeg.exe",
         path + "/bin/win64/ffprobe.exe",
         path + "/wd/");
@@ -58,6 +61,14 @@ vidManager.setScheme(
     24,
     "16:9"
 )
+
+server = new PreviewServer(vidManager);
+
+// Settings for preview server
+
+ipcMain.on('previewSettings', (event, arg) => {
+    server.settings = arg;
+})
 
 // Messaging between windows
 

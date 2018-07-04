@@ -57,6 +57,8 @@ function getTitle(path) {
     return exp.exec(path)[1];
 }
 
+ipcRenderer.send("previewFilters", ["vflip"])
+
 function over(s) {
     d = new Date(1970, 0, 1);
     d.setMilliseconds(s*1000)
@@ -228,6 +230,9 @@ function keyup(e) {
     if (e.key == "s") {
         split();
         updateInspect();
+    }
+    if (e.key == "p") {
+        preview();
     }
 }
 
