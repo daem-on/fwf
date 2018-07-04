@@ -26,7 +26,9 @@ progress {
     margin-left: 5px;
 }
 li {
-    list-style-type: none;
+    list-style-type: decimal;
+    font-family: SourceSansLight;
+    -webkit-user-select: auto;
 }
 
 div.timeline-axis-text {
@@ -114,6 +116,7 @@ body {
     margin: 3px;
     font-size: 80%;
     cursor: default;
+    -webkit-user-select: none;
 }
 .toolButton {
     border: 1px solid white;

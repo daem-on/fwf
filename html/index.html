@@ -33,9 +33,11 @@
                     </li>
                 </ul>
 
-                Seek: <input v-model="properties.seek">
-                <button @click="setSeek()" type="number">Set</button> <br>
-                <a class="toolButton" onclick="openFilterWindow()">Add filter</a>
+                Seek: <input v-model="properties.seek" type="number">
+                <a class="shortButton" @click="setSeek()">Set</a> <br>
+                <div>
+                    <a class="toolButton" onclick="openFilterWindow()">Add filter</a>
+                </div>
             </div>
         </div>
     </div>

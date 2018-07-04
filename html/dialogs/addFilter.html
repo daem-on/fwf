@@ -26,6 +26,7 @@
             <a onclick="loadTemplate('drawbox')">Draw Box</a> <br>
         </div>
         <a class="toolbutton" onclick="add()">Add filter</a>
+        <a class="toolbutton" onclick="fromClipboard()">Paste from clipboard</a>
     </div>
 </div>
 <div id="help">
@@ -64,7 +65,7 @@ a {
 </style>
 
 <script>
-const {ipcRenderer} = require('electron');
+const {ipcRenderer, clipboard} = require('electron');
 
 templates = {}
 
@@ -109,6 +110,10 @@ var editor = new JSONEditor(container, options, {filter: "", options:{}});
 
 function loadTemplate(name) {
     editor.set(templates[name])
+}
+
+function fromClipboard() {
+    editor.setText(clipboard.readText())
 }
 
 function add() {

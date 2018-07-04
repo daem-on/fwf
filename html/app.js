@@ -24,6 +24,8 @@ links.events.addListener(timeline, 'change', onchange);
 
 function ondelete() {}
 function onchanged() {
+    if (!liveCheckValidLength())
+        timeline.cancelChange();
 }
 function onselect() {
     updateInspect();
@@ -95,6 +97,34 @@ function updateInspect() {
     }
     else
         inspectorManager.properties = {};
+}
+
+function split() {
+    if (timeline.getSelection()[0]) {
+        old = getSelected();
+        customTime = timeline.getCustomTime();
+        // customTime.setMilliseconds(0);
+
+        // JS doesn't let you copy, so this is a dirty way of doing it
+        bseek = old.seek || 0;
+        timeline.addItem({
+            start: customTime,
+            end: old.end,
+            content: old.content,
+            maxduration: old.maxduration,
+            seek: bseek + (back(customTime) - back(old.start)),
+            path: old.path,
+            valid: true,
+            filters: old.filters,
+            inputs: old.inputs,
+        })
+
+        timeline.changeItem(
+            timeline.getSelection()[0].row,
+            { end: customTime }
+        )
+
+    }
 }
 
 function initRender() {
@@ -193,6 +223,10 @@ function getEndTime() {
 function keyup(e) {
     if (e.key == "Delete") {
         timeline.deleteItem(timeline.getSelection()[0].row)
+        updateInspect();
+    }
+    if (e.key == "s") {
+        split();
         updateInspect();
     }
 }
