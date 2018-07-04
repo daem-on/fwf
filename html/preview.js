@@ -1,6 +1,8 @@
 var video = $("#preview")[0];
 
 function preview() {
+    if (!timeline.getSelection()[0]) return;
+
     var selected = getSelected();
     var customTime = back(timeline.getCustomTime());
 

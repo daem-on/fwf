@@ -20,24 +20,36 @@
             <i class="material-icons">info</i>About</a>
     </div>
     <div id="mainview">
-        <div id="sources">
-            <div class="source" v-for="(source, index) in sources" :kex="source.id">
-                {{ source.title }} <i>{{ source.path }}</i>
-                <a @click="deleteItem(index)" class="shortButton">
-                    <i class="material-icons">clear</i></a>
-                <a @click="addItem(index)" class="shortButton">
-                    <i class="material-icons">add</i></a>
-            </div>
+        <div id="sources" v-cloak>
+            <h3><i class="material-icons">camera_roll</i>Sources</h3>
+            <table>
+                <tr class="source" v-for="(source, index) in sources" :kex="source.id">
+                    <td>
+                        {{ source.title }} <i>{{ source.path }}</i>
+                    </td>
+                    <td class="icon-column">
+                    <a @click="deleteItem(index)" class="shortButton">
+                        <i class="material-icons">delete</i></a>
+                    <a @click="addItem(index)" class="shortButton">
+                        <i class="material-icons">add</i></a>
+                    </td>
+                </tr>
+            </table>
         </div>
         <div id="preview-box">
+            <h3><i class="material-icons">filter_frames</i>Preview</h3>
             <video autoplay id="preview" width="480"></video>
             <a class="shortButton" onclick="preview()">
                 <i class="material-icons">play_arrow</i></a></a>
             <a class="shortButton" onclick="pausePreview()">
                 <i class="material-icons">pause</i></a></a>
         </div>
-        <div id="inspector">
-            <div v-if="!properties.start">Nothing selected.</div>
+        <div id="inspector" v-cloak>
+            <h3><i class="material-icons">search</i>Inspector</h3>
+            <div v-if="!properties.start">
+                Nothing selected. <br>
+                <i class="material-icons bigicon">visibility_off</i>
+            </div>
             <div v-if="properties.start">
                 Valid: {{ properties.valid }} <br>
                 Original duration: {{ properties.maxduration }}s <br>
@@ -55,16 +67,14 @@
                 Seek: <input v-model="properties.seek" type="number">
                 <a class="shortButton" @click="setSeek()">
                     <i class="material-icons">done</i></a></a> <br>
-                <div>
-                    <a class="toolButton" onclick="openFilterWindow()">
-                        <i class="material-icons">filter</i>Add filter</a>
-                </div>
+                <hr>
+                <a class="toolButton" onclick="openFilterWindow()">
+                    <i class="material-icons">filter</i>Add filter</a>
             </div>
         </div>
     </div>
     <div id="timeview">
         <div id="progress">
-            Progress bars
             <progress id="bar" max="100" value="0">
         </div>
         <div id="timelinecont"></div>
