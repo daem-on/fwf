@@ -18,6 +18,10 @@
                 <a @click="addItem(index)" class="shortButton">+</a>
             </div>
         </div>
+        <div>
+            <video autoplay id="preview">
+            </video>
+        </div>
         <div id="inspector">
             <div v-if="!properties.start">Nothing selected.</div>
             <div v-if="properties.start">

@@ -12,6 +12,8 @@
     "electron": "^2.0.2"
   },
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
     "fluent-ffmpeg": "^2.1.2"
   }
 }
