@@ -14,12 +14,13 @@ app.on('ready', () => {
 });
 
 function showSplash() {
-    splash = new BrowserWindow({width: 400, height: 270, transparent: true, frame: false, alwaysOnTop: true, resizable: false});
+    splash = new BrowserWindow({width: 400, height: 270, transparent: true,
+        frame: false, alwaysOnTop: true, resizable: false, title: "fwf"});
     splash.loadFile("html/splash.html");
 }
 
 function createWindow () {
-    win = new BrowserWindow({width: 1000, height: 800, show: false})
+    win = new BrowserWindow({width: 1000, height: 800, show: false, title: "fwf"})
 
     win.loadFile('html/index.html')
     //win.setProgressBar(0.7)

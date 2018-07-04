@@ -23,6 +23,7 @@ input {
     background-color: #282e38;
     color: #ddd;
     border: none;
+    height: 30px;
 }
 progress {
     width: 100%;
@@ -149,7 +150,10 @@ table {
 .shortButton .material-icons {
     font-size: 20;
 }
-
+.fixButton {
+    position: relative;
+    top: 6px;
+}
 .shortButton {
     /* border: 1px solid white; */
     display: inline-block;
@@ -168,7 +172,7 @@ table {
 .toolButton {
     /* border: 1px solid white; */
     display: inline-block;
-    padding: 2px 7px;
+    padding: 2px 7px 4px 7px;
     margin: 3px;
     cursor: pointer;
     font-family: SourceSansLight;

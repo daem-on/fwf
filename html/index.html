@@ -59,13 +59,13 @@
                 <ul>
                     <li v-for="(filter, index) in properties.filters">
                         {{ JSON.stringify(filter) }}
-                        <a class="shortButton" @click="removeFilter(index)">
+                        <a class="shortButton fixButton" @click="removeFilter(index)">
                             <i class="material-icons">clear</i></a></a>
                     </li>
                 </ul>
 
                 Seek: <input v-model="properties.seek" type="number">
-                <a class="shortButton" @click="setSeek()">
+                <a class="shortButton fixButton" @click="setSeek()">
                     <i class="material-icons">done</i></a></a> <br>
                 <hr>
                 <a class="toolButton" onclick="openFilterWindow()">

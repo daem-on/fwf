@@ -75,7 +75,8 @@ function getSelected() {
 
 let filterWin;
 function openFilterWindow() {
-    filterWin = new BrowserWindow({width: 800, height: 600})
+    filterWin = new BrowserWindow({width: 800, height: 600,
+        title: "fwf: Filter editor"})
     filterWin.on('closed', () => {
         filterWin = null
     });
