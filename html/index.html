@@ -12,6 +12,10 @@
             <i class="material-icons">input</i>Open File</a>
         <a onclick="initRender()" class="toolButton">
             <i class="material-icons">movie</i>Render</a>
+        <a onclick="save()" class="toolButton">
+            <i class="material-icons">save</i>Save clipboard</a>
+        <a onclick="load()" class="toolButton">
+            <i class="material-icons">redo</i>Load clipboard</a>
     </div>
     <div id="mainview">
         <div id="sources">
@@ -66,7 +70,7 @@
 </div>
 
 <script>
-const {ipcRenderer} = require('electron');
+const {ipcRenderer, clipboard} = require('electron');
 const {dialog, BrowserWindow} = require('electron').remote;
 const os = require('os');
 </script>
