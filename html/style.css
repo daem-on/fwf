@@ -8,6 +8,10 @@
     src: url(fonts/SourceSansPro-Light.ttf);
 }
 
+body {
+    cursor: default;
+    overflow: hidden;
+}
 textarea {
     width: 100%;
     margin: 7px 0;
@@ -21,14 +25,21 @@ input {
     border: none;
 }
 progress {
-    position: absolute;
-    margin: 1px;
-    margin-left: 5px;
+    width: 100%;
 }
 li {
     list-style-type: decimal;
     font-family: SourceSansLight;
     -webkit-user-select: auto;
+}
+h3 {
+    margin: 5px;
+}
+h3 .material-icons {
+    font-size: 18;
+    padding-right: 3px;
+    position: relative;
+    top: 3px;
 }
 
 div.timeline-axis-text {
@@ -54,6 +65,7 @@ div.timeline-event {
     background-color: #143977;
     color: white;
     cursor: default;
+    border-radius: 5px;
 }
 div.timeline-event-selected {
     background-color: #356ac6;
@@ -77,8 +89,11 @@ body {
     border: 1px solid #333 !important;
     /* background-color: #282e38; */
 }
-#progress, #sources, #inspector, #preview-box {
+#sources, #inspector, #preview-box {
     border: 1px solid #333;
+}
+#sources, #inspector {
+    overflow-y: auto;
 }
 #inspector, #preview-box {
     margin-left: 10px;
@@ -116,8 +131,15 @@ body {
 
 video {
     background: #000;
+    margin-top: 5px;
+}
+table {
+    width: 100%;
 }
 
+.icon-column {
+    width: 80px;
+}
 .toolButton .material-icons {
     font-size: 18;
     padding-right: 3px;
@@ -129,18 +151,22 @@ video {
 }
 
 .shortButton {
-    border: 1px solid white;
+    /* border: 1px solid white; */
     display: inline-block;
     /* padding: 0px 5px; */
     margin: 3px;
     font-size: 80%;
     cursor: default;
     -webkit-user-select: none;
-    position: relative;
-    top: 5px;
+    /* position: relative; */
+    /* top: 5px; */
+    padding: 5px;
+}
+.shortButton:hover, .toolButton:hover {
+    background-color: #282e38;
 }
 .toolButton {
-    border: 1px solid white;
+    /* border: 1px solid white; */
     display: inline-block;
     padding: 2px 7px;
     margin: 3px;
@@ -152,6 +178,30 @@ video {
     padding: 6px;
     cursor: default;
 }
-.source:nth-child(even) {
-    background: #282e38;
+i.bigicon {
+    font-size: 90px;
+    color: rgba(255, 255, 255, 0.1);
+    cursor: default;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+/* Progress bars styling */
+progress[value] {
+  -webkit-appearance: none;
+  appearance: none;
+
+  height: 5px;
+}
+
+progress[value]::-webkit-progress-bar {
+  background-color: #282e38;
+  border-radius: 2px;
+}
+
+progress[value]::-webkit-progress-value {
+    background: linear-gradient(to bottom, #26cc71 0%,#37664f 100%);
+    border-radius: 2px;
 }

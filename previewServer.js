@@ -24,8 +24,6 @@ class PreviewServer {
         });
 
         app.get('/filtered', (req, res) => {
-            if (DEBUG_MODE) console.log(this.settings)
-
             res.contentType('mp4');
             videoManager.renderPreview({
                 path: this.settings.path,

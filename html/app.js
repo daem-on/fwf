@@ -1,5 +1,5 @@
 var imported = []; // store for imported clips, source of truth for sourceManager
-var iid = 1; // last id assigned
+var iid = 0; // last id assigned
 
 var timeline = new links.Timeline(
     document.getElementById("timelinecont"),
@@ -255,4 +255,30 @@ function openFile() {
             })
         })
     }
+}
+
+function showSplash() {
+    ipcRenderer.send("showSplash");
+}
+
+function save() {
+    var data = {
+        imported: imported,
+        iid: iid,
+        tldata: tldata,
+    }
+
+    clipboard.writeText(JSON.stringify(data));
+}
+
+function load() {
+    data = JSON.parse(clipboard.readText())
+    console.log(data)
+
+    imported = data.imported;
+    sourceManager.sources = data.imported;
+    iid = data.iid;
+    timeline.setData(data.tldata);
+
+    timeline.redraw();
 }
