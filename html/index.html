@@ -25,7 +25,7 @@
             <table>
                 <tr class="source" v-for="(source, index) in sources" :kex="source.id">
                     <td>
-                        {{ source.title }} <i>{{ source.path }}</i>
+                        <a :title="source.path">{{ source.title }}</a>
                     </td>
                     <td class="icon-column">
                     <a @click="deleteItem(index)" class="shortButton">

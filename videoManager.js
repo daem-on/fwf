@@ -139,6 +139,7 @@ class VideoManager {
             command.input(options.path)
             .on("end", resolve)
             .on("error", reject)
+            .duration(10);
             .size("480x?")
             .format("mp4")
             .outputOptions('-movflags frag_keyframe+empty_moov') // seekability magic
