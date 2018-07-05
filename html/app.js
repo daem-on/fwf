@@ -119,7 +119,7 @@ function split() {
             path: old.path,
             valid: true,
             filters: old.filters,
-            inputs: old.inputs,
+            advanced: old.advanced,
         })
 
         timeline.changeItem(
@@ -142,7 +142,7 @@ function initRender() {
             properties: {
                 duration: (renderArray[i].end - renderArray[i].start) / 1000,
                 seek: renderArray[i].seek,
-                inputs: renderArray[i].inputs,
+                advanced: renderArray[i].advanced,
                 filters: renderArray[i].filters,
             }
         });

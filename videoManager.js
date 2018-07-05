@@ -73,23 +73,32 @@ class VideoManager {
 
             if (workFile.properties.duration) // set duration
                 command.duration(workFile.properties.duration);
-            if (workFile.properties.inputs) { // add multiple inputs
-                var inputs = workFile.properties.inputs;
-                for (var i = 0; i < inputs.length; i++) {
-                    command.input(inputs[i]);
+
+            var complex = false;
+            // workFile.properties.advanced: additional render settings
+            if (!workFile.properties.advanced) {
+
+                if (workFile.properties.advanced.inputs) { // add multiple inputs
+                    var inputs = workFile.properties.inputs;
+                    for (var i = 0; i < inputs.length; i++) {
+                        command.input(inputs[i]);
+                    }
                 }
+                if (workFile.properties.advanced.complex) { // use complex filtergraph
+                    complex = true;
+                    if (workFile.properties.complexFilter)
+                        command.complexFilter(workFile.properties.complexFilter);
+                }
+
             }
 
-            this.setCallbacks(command, callbacks);
-
-            if (workFile.properties.complex) { // use complex filtergraph
-                if (workFile.properties.complexFilter)
-                    command.complexFilter(workFile.properties.complexFilter);
-            } else { // don't use complex filtergraph
+            if (!complex) { // don't use complex filtergraph
                 this.fromScheme(command);
                 if (workFile.properties.filters)
                     command.videoFilters(workFile.properties.filters);
             }
+
+            this.setCallbacks(command, callbacks);
 
             // render input to single file
             command.input(workFile.file)
