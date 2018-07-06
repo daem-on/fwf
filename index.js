@@ -1,5 +1,6 @@
 const {app, BrowserWindow, ipcMain, dialog} = require('electron')
-const os = require('os')
+const os = require('os');
+const fs = require('fs');
 const DEBUG_MODE = false;
 let win;
 let splash;
@@ -42,6 +43,7 @@ const VideoManager = require("./videoManager.js")
 const PreviewServer = require("./previewServer.js")
 
 var path = app.getAppPath();
+var workdir = app.getPath("userData");
 
 var vidManager;
 
@@ -49,12 +51,12 @@ if (os.platform() == "darwin") {
     vidManager = new VideoManager(
         path + "/bin/darwin/ffmpeg",
         path + "/bin/darwin/ffprobe",
-        path + "/wd/");
+        workdir);
 } else if (os.platform() == "win32" && os.arch() == "x64") {
     vidManager = new VideoManager(
         path + "/bin/win64/ffmpeg.exe",
         path + "/bin/win64/ffprobe.exe",
-        path + "/wd/");
+        workdir);
 } else {
     dialog.showErrorBox(
         "System not supported",
