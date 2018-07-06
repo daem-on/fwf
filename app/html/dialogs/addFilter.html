@@ -1,0 +1,125 @@
+<link rel="stylesheet" type="text/css" href="../style.css">
+<link rel="stylesheet" type="text/css" href="../lib/jsoneditor.min.css">
+<link rel="stylesheet" type="text/css" href="../lib/darktheme.css">
+<script src="../lib/jsoneditor-minimalist.min.js"></script>
+
+<h2>Filter editor</h2>
+
+<div id="view">
+    <div id="jsoneditor"></div>
+    <div id="presets">
+        <div style="margin-bottom:30px;">
+            <h3>Presets</h3>
+            <a onclick="loadTemplate('fade')">Fade</a> <br>
+            <a onclick="loadTemplate('drawtext')">Draw Text</a> <br>
+            <a onclick="loadTemplate('rotate')">Rotate</a> <br>
+            <a onclick="loadTemplate('smartblur')">Smart Blur</a> <br>
+            <a onclick="loadTemplate('hflip')">Horizontal Flip</a> <br>
+            <a onclick="loadTemplate('subtitles')">Burn Subtitles</a> <br>
+            <a onclick="loadTemplate('vignette')">Vignette</a> <br>
+            <a onclick="loadTemplate('zoompan')">Zoom & Pan</a> <br>
+            <a onclick="loadTemplate('hue')">Hue & Saturation</a> <br>
+            <a onclick="loadTemplate('negate')">Negate</a> <br>
+            <a onclick="loadTemplate('pad')">Pad</a> <br>
+            <a onclick="loadTemplate('colorbalance')">Color balance</a> <br>
+            <a onclick="loadTemplate('deshake')">Deshake</a> <br>
+            <a onclick="loadTemplate('drawbox')">Draw Box</a> <br>
+        </div>
+        <a class="toolbutton" onclick="add()">Add filter</a>
+        <a class="toolbutton" onclick="fromClipboard()">Paste from clipboard</a>
+    </div>
+</div>
+<div id="help">
+    This editor lets you write filters that the renderer will pass to ffmpeg. These should
+    be written in JSON using the JSON editor on the left. Several presets
+    are provided on the right. The filters need to follow the filter syntax
+    of fluent-ffmpeg.
+</div>
+
+<style>
+#view > div {
+    flex: 1;
+    margin: 10px;
+}
+h3 {
+    margin: 0;
+}
+h2 {
+    margin: 10px;
+}
+#view {
+    display: flex;
+    flex-direction: row;
+}
+body {
+    height: 400px;
+}
+a {
+    cursor: pointer;
+}
+#help {
+    padding-left: 10px;
+    font-size: 90%;
+    color: #3a424f;
+}
+</style>
+
+<script>
+const {ipcRenderer, clipboard} = require('electron');
+
+templates = {}
+
+// Templates definition
+templates.fade = {filter:"fade", options:["in",0,30]};
+templates.drawtext = {filter:"drawtext", options:{
+    fontfile:"/path/to/fontfile.ttf",
+    text:"Text",
+    fontsize:30,
+}};
+templates.rotate = {filter:"rotate", options:"90*PI/180"};
+templates.smartblur = {filter:"smartblur"};
+templates.hflip = {filter:"hflip"};
+templates.subtitles = {filter:"subtitles", options:{
+    filename:"/path/to/subtitle.srt"}};
+templates.vignette = {filter:"vignette"};
+templates.zoompan = {filter:"zoompan", options:{
+    zoom: 1.5, x: 50, y: 60,
+}}
+templates.hue = {filter:"hue", options:{
+    h: 60, s: 1,
+}}
+templates.negate = {filter:"negate"};
+templates.pad = {filter:"pad", options:{
+    width: 320, height: 480, x: 10, y: 20,
+}}
+templates.colorbalance = {filter:"colorbalance", options:{
+    rs: 0.3, rm: 0.3, rh: 0.4,
+}}
+templates.deshake = {filter:"deshake"};
+templates.drawbox = {filter:"drawbox", options:{
+    width: 320, height: 480, x: 10, y: 20, color: "purple",
+}}
+
+var container = document.getElementById("jsoneditor");
+var options = {
+    mode: 'tree',
+    search: false,
+    navigationBar: false,
+};
+var editor = new JSONEditor(container, options, {filter: "", options:{}});
+
+function loadTemplate(name) {
+    editor.set(templates[name])
+}
+
+function fromClipboard() {
+    editor.setText(clipboard.readText())
+}
+
+function add() {
+    ipcRenderer.send("toMainWindow", {
+        channel: "addFilter",
+        value: editor.get(),
+    });
+}
+</script>

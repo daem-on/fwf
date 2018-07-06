@@ -1,0 +1,28 @@
+{
+    "name": "fwf",
+    "version": "1.0.0",
+    "description": "fun with ffmpeg",
+    "main": "index.js",
+    "scripts": {
+        "start": "electron .",
+        "pack": "electron-builder --dir",
+        "dist": "electron-builder"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "electron": "^2.0.2",
+        "electron-builder": "^20.19.2"
+    },
+    "dependencies": {
+        "body-parser": "^1.18.3",
+        "express": "^4.16.3",
+        "fluent-ffmpeg": "^2.1.2"
+    },
+    "build": {
+        "appId": "com.daemonw.fwf",
+        "mac": {
+            "category": "idk"
+        }
+    }
+}
