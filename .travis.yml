@@ -1,0 +1,11 @@
+{
+  "os": "linux",
+  "dist": "trusty",
+  "group": "stable",
+  "script": "app/node_modules/.bin/electron-builder -m",
+  "install": [
+    "cd app",
+    "yarn"
+  ],
+  "language": "node_js"
+}

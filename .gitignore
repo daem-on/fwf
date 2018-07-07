@@ -64,3 +64,4 @@ typings/
 
 # large binary files and workdir
 /app/bin
+dist/

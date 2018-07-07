@@ -42,12 +42,13 @@ ipcMain.on('showSplash', (event, arg) => {
 const VideoManager = require("./videoManager.js")
 const PreviewServer = require("./previewServer.js")
 
-var path = app.getAppPath();
+var path = app.getAppPath().replace('app.asar', 'app.asar.unpacked');
 var workdir = app.getPath("userData");
 
 var vidManager;
 
 if (os.platform() == "darwin") {
+    console.log(path + "/bin/darwin/ffmpeg");
     vidManager = new VideoManager(
         path + "/bin/darwin/ffmpeg",
         path + "/bin/darwin/ffprobe",
