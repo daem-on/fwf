@@ -57,8 +57,6 @@ function getTitle(path) {
     return exp.exec(path)[1];
 }
 
-ipcRenderer.send("previewFilters", ["vflip"])
-
 function over(s) {
     d = new Date(1970, 0, 1);
     d.setMilliseconds(s*1000)
@@ -165,6 +163,10 @@ ipcRenderer.on("relay", (event, arg) => {
     if (arg.channel == "addFilter") {
         addFilter(arg.value);
     }
+    if (arg.channel == "setAdvancedProp") {
+        if (timeline.getSelection()[0])
+            tldata[timeline.getSelection()[0]].advanced[arg.key] = arg.value;
+    }
 })
 
 ipcRenderer.on("error", (event, arg) => {
@@ -263,22 +265,54 @@ function showSplash() {
 }
 
 function save() {
+    for (var i = 0; i < tldata.length; i++) {
+        tldata[i].startSec = back(tldata[i].start);
+        tldata[i].endSec = back(tldata[i].end);
+    }
+
     var data = {
         imported: imported,
         iid: iid,
         tldata: tldata,
     }
 
-    clipboard.writeText(JSON.stringify(data));
+    var savePath = dialog.showSaveDialog({
+        filters: [
+            {name: "fwf Project", extensions: ["fwf"]},
+            {name: "JSON file", extensions: ["json"]}
+        ]
+    });
+
+    if (!savePath) return;
+
+    fs.writeFile(savePath, JSON.stringify(data), (err) => {
+        if (err) alert(err);
+        else console.log("Saved successfully.");
+    })
 }
 
 function load() {
-    data = JSON.parse(clipboard.readText())
-    console.log(data)
+    var openPath = dialog.showOpenDialog({
+        filters: [
+            {name: "fwf Project", extensions: ["fwf"]},
+            {name: "JSON file", extensions: ["json"]}
+        ], multiSelections: false
+    });
+
+    if (!openPath) return;
+
+    var data = JSON.parse(fs.readFileSync(openPath[0], "utf8"));
 
     imported = data.imported;
     sourceManager.sources = data.imported;
     iid = data.iid;
+
+    for (var i = 0; i < data.tldata.length; i++) {
+        data.tldata[i].start = over(data.tldata[i].startSec);
+        data.tldata[i].end = over(data.tldata[i].endSec);
+    }
+
+    tldata = data.tldata;
     timeline.setData(data.tldata);
 
     timeline.redraw();

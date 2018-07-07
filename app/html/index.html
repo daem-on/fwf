@@ -9,19 +9,23 @@
 <div id="layout">
     <div id="toolbar">
         <a onclick="openFile()" class="toolButton">
-            <i class="material-icons">input</i>Open File</a>
+            <i class="material-icons">input</i>Add source</a>
         <a onclick="initRender()" class="toolButton">
             <i class="material-icons">movie</i>Render</a>
         <a onclick="save()" class="toolButton">
-            <i class="material-icons">save</i>Save clipboard</a>
+            <i class="material-icons">save</i>Save</a>
         <a onclick="load()" class="toolButton">
-            <i class="material-icons">redo</i>Load clipboard</a>
+            <i class="material-icons">redo</i>Load</a>
         <a onclick="showSplash()" class="toolButton">
             <i class="material-icons">info</i>About</a>
     </div>
     <div id="mainview">
         <div id="sources" v-cloak>
             <h3><i class="material-icons">camera_roll</i>Sources</h3>
+            <div v-if="!sources[0]">
+                No sources. <br>
+                <i class="material-icons bigicon">videocam_off</i>
+            </div>
             <table>
                 <tr class="source" v-for="(source, index) in sources" :kex="source.id">
                     <td>
@@ -85,6 +89,7 @@
 const {ipcRenderer, clipboard} = require('electron');
 const {dialog, BrowserWindow} = require('electron').remote;
 const os = require('os');
+const fs = require('fs');
 </script>
 <script src="app.js"></script>
 <script src="managers.js"></script>
