@@ -2,7 +2,7 @@
   "os": "linux",
   "dist": "trusty",
   "group": "stable",
-  "script": "app/node_modules/.bin/electron-builder -m",
+  "script": "node_modules/.bin/electron-builder -m",
   "install": [
     "cd app",
     "yarn"
