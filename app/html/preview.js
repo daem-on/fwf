@@ -25,3 +25,6 @@ function setSource(url) {
 function pausePreview() {
     video.pause();
 }
+function resumePreview() {
+    video.play();
+}

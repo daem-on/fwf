@@ -12,6 +12,8 @@
             <i class="material-icons">input</i>Add source</a>
         <a onclick="initRender()" class="toolButton">
             <i class="material-icons">movie</i>Render</a>
+        <a onclick="openSchemeWindow()" class="toolButton">
+            <i class="material-icons">switch_video</i>Scheme</a>
         <a onclick="save()" class="toolButton">
             <i class="material-icons">save</i>Save</a>
         <a onclick="load()" class="toolButton">
@@ -43,10 +45,12 @@
         <div id="preview-box">
             <h3><i class="material-icons">filter_frames</i>Preview</h3>
             <video autoplay id="preview" width="480"></video>
-            <a class="shortButton" onclick="preview()">
-                <i class="material-icons">play_arrow</i></a></a>
-            <a class="shortButton" onclick="pausePreview()">
-                <i class="material-icons">pause</i></a></a>
+            <a class="shortButton" onclick="preview()" title="Start preview">
+                <i class="material-icons">queue_play_next</i></a>
+            <a class="shortButton" onclick="resumePreview()" title="Resume">
+                <i class="material-icons">play_arrow</i></a>
+            <a class="shortButton" onclick="pausePreview()" title="Pause">
+                <i class="material-icons">pause</i></a>
         </div>
         <div id="inspector" v-cloak>
             <h3><i class="material-icons">search</i>Inspector</h3>
@@ -56,9 +60,9 @@
             </div>
             <div v-if="properties.start">
                 Valid: {{ properties.valid }} <br>
-                Original duration: {{ properties.maxduration }}s <br>
-                Start: {{ back(properties.start) }}s <br>
-                End: {{ back(properties.end) }}s <br>
+                Original duration: {{ Math.round(properties.maxduration) }}s <br>
+                Start: {{ Math.round(back(properties.start)) }}s <br>
+                End: {{ Math.round(back(properties.end)) }}s <br>
                 Filters: <br>
                 <ul>
                     <li v-for="(filter, index) in properties.filters">

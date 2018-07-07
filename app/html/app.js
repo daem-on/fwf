@@ -74,11 +74,21 @@ function getSelected() {
 let filterWin;
 function openFilterWindow() {
     filterWin = new BrowserWindow({width: 800, height: 600,
-        title: "fwf: Filter editor"})
+        title: "fwf: Filter editor", backgroundColor: "#20242B"})
     filterWin.on('closed', () => {
         filterWin = null
     });
     filterWin.loadFile("html/dialogs/addFilter.html");
+}
+
+let schemeWin;
+function openSchemeWindow() {
+    schemeWin = new BrowserWindow({width: 800, height: 250,
+        title: "fwf: Scheme manager", backgroundColor: "#20242B"})
+    schemeWin.on('closed', () => {
+        schemeWin = null
+    });
+    schemeWin.loadFile("html/dialogs/schemeManager.html");
 }
 
 function addFilter(filter) {
@@ -226,7 +236,7 @@ function getEndTime() {
 }
 
 function keyup(e) {
-    if (e.key == "Delete") {
+    if (e.key == "Delete" || e.key == "Backspace") {
         timeline.deleteItem(timeline.getSelection()[0].row)
         updateInspect();
     }

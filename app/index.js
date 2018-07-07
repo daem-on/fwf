@@ -70,11 +70,11 @@ vidManager.setScheme(
     ".mp4",
     "libx264",
     1000,
-    24,
-    "16:9"
+    24
 )
 
-server = new PreviewServer(vidManager);
+let server = new PreviewServer(vidManager);
+let schemeWin;
 
 // Settings for preview server
 

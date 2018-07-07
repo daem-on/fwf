@@ -1,0 +1,85 @@
+<script>window.$ = window.jQuery = require('../lib/jquery-3.3.1.min.js');</script>
+<link rel="stylesheet" type="text/css" href="../style.css">
+
+<h2>Scheme Manager</h2>
+
+<div id="view">
+    <div id="grid">
+        <div>
+            <label>Resolution</label>
+            <input value="1280x720" id="resolution">
+        </div>
+        <div>
+            <label>Format</label>
+            <input value=".mp4" id="format">
+        </div>
+        <div>
+            <label>Codec</label>
+            <input value="libx264" id="codec">
+        </div>
+        <div>
+            <label>Bitrate</label>
+            <input value=1000 id="bitrate">
+        </div>
+        <div>
+            <label>FPS</label>
+            <input value=24 id="fps">
+        </div>
+    </div>
+    <div id="right">
+        <a class="toolbutton" onclick="apply()">Set scheme</a>
+    </div>
+</div>
+<div id="help">
+    Set the options for the output video. These are passed to FFmpeg, so
+    choose settings that your FFmpeg binary supports. Some sensible defaults
+    are provided.
+</div>
+
+<style>
+h2 {
+    margin: 10px;
+}
+a {
+    cursor: pointer;
+}
+input {
+    width: 100%;
+}
+#help {
+    padding-left: 10px;
+    font-size: 90%;
+    color: #3a424f;
+}
+#grid {
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+#right {
+    margin: 10px;
+    text-align: right;
+}
+label {
+    font-family: SourceSansLight;
+}
+</style>
+
+<script>
+const {ipcRenderer} = require('electron');
+const remote = require('electron').remote;
+
+function apply() {
+    var scheme = {
+        resolution: $("#resolution")[0].value,
+        format: $("#format")[0].value,
+        codec: $("#codec")[0].value,
+        bitrate: $("#bitrate")[0].value,
+        fps: $("#fps")[0].value,
+    }
+
+    ipcRenderer.send("setScheme", scheme);
+    remote.getCurrentWindow().close();
+}
+</script>

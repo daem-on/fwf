@@ -35,12 +35,18 @@ li {
 }
 h3 {
     margin: 5px;
+    font-family: SourceSansLight;
 }
 h3 .material-icons {
     font-size: 18;
     padding-right: 3px;
     position: relative;
     top: 3px;
+}
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #333;
 }
 
 div.timeline-axis-text {
