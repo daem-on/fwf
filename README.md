@@ -15,4 +15,5 @@ JSON editor GUI using [jsoneditor](https://github.com/josdejong/jsoneditor/), wi
 
 ### License
 Released under the MIT license, see LICENSE.
+
 ![filter editor screenshot](https://imgur.com/eYh7yqY.png)
