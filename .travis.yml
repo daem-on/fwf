@@ -8,8 +8,5 @@
     "yarn"
   ],
   "language": "node_js",
-  "node_js": [
-    "node",
-    "8"
-  ]
+  "node_js": "8"
 }
