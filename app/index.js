@@ -65,13 +65,14 @@ if (os.platform() == "darwin") {
     )
 }
 
-vidManager.setScheme(
-    "1280x720",
-    ".mp4",
-    "libx264",
-    1000,
-    24
-)
+vidManager.scheme = {
+    size: "1280x720",
+    format: ".mp4",
+    codec: "libx264",
+    bitrate: 1000,
+    fps: 24,
+    pad: true
+}
 
 let server = new PreviewServer(vidManager);
 let schemeWin;

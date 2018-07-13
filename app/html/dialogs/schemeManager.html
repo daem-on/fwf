@@ -1,5 +1,6 @@
 <script>window.$ = window.jQuery = require('../lib/jquery-3.3.1.min.js');</script>
 <link rel="stylesheet" type="text/css" href="../style.css">
+<link rel="stylesheet" type="text/css" href="../fonts/iconfont/material-icons.css">
 
 <h2>Scheme Manager</h2>
 
@@ -25,6 +26,12 @@
             <label>FPS</label>
             <input value=24 id="fps">
         </div>
+        <div>
+            <label>Resize Mode <i
+                title="Either 'stretch' or 'pad', sets how videos with a different aspect ratio to the output should be handled"
+                class="material-icons">help</i></label>
+            <input value="pad" id="resize">
+        </div>
     </div>
     <div id="right">
         <a class="toolbutton" onclick="apply()">Set scheme</a>
@@ -37,6 +44,9 @@
 </div>
 
 <style>
+i.material-icons {
+    font-size: 90%;
+}
 h2 {
     margin: 10px;
 }
@@ -78,6 +88,8 @@ function apply() {
         bitrate: $("#bitrate")[0].value,
         fps: $("#fps")[0].value,
     }
+    if ($("resize")[0].value == "pad") scheme.pad = true;
+    else scheme.pad = false;
 
     ipcRenderer.send("setScheme", scheme);
     remote.getCurrentWindow().close();

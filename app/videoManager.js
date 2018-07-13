@@ -165,16 +165,7 @@ class VideoManager {
             .fps(sch.fps)
             .videoBitrate(sch.bitrate)
             .videoCodec(sch.codec)
-    }
-
-    setScheme(size, format, codec, bitrate, fps) {
-        this.scheme = {
-            size: size,
-            format: format,
-            codec: codec,
-            bitrate: bitrate,
-            fps: fps
-        }
+            .autopad(sch.pad)
     }
 
     convertToCompliant(input, name) {
