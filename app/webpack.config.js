@@ -1,11 +1,13 @@
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const webpack = require('webpack');
 
 module.exports = {
     mode: "development",
     entry: './src/index.js',
     plugins: [
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
+        new webpack.IgnorePlugin(new RegExp("^(fs|ipc)$"))
     ],
     module: {
         rules: [
@@ -21,7 +23,16 @@ module.exports = {
                     'vue-style-loader',
                     'css-loader'
             ]
-            }
+            },
+            {
+                test: /\.ttf$/,
+                use: {
+                    loader: "url-loader",
+                    options: {
+                        limit: 50000,
+                    },
+                },
+            },
         ]
     },
     output: {
@@ -33,6 +44,7 @@ module.exports = {
         contentBase: path.join(__dirname, 'dist'),
         watchOptions: {
             poll: false
-        }
+        },
+        publicPath: 'http://localhost:8080/'
     }
 };

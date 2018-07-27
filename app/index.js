@@ -1,7 +1,8 @@
 const {app, BrowserWindow, ipcMain, dialog} = require('electron')
 const os = require('os');
 const fs = require('fs');
-const DEBUG_MODE = false;
+const DEBUG_MODE = process.env.DEBUG_MODE | false;
+const DEV_SERVER = process.env.DEV_SERVER | false;
 let win;
 let splash;
 
@@ -23,7 +24,8 @@ function showSplash() {
 function createWindow () {
     win = new BrowserWindow({width: 1000, height: 800, show: false, title: "fwf"})
 
-    win.loadFile('dist/index.html')
+    if (DEV_SERVER) win.loadFile('dev/index.html')
+    else win.loadFile('dist/index.html')
     //win.setProgressBar(0.7)
     win.on('closed', () => {
         win = null

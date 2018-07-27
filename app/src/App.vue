@@ -1,19 +1,31 @@
 <template>
     <div id="app">
-        {{ text }}
-        <button @click="click">No way!</button>
+        Heyho
+        <TimeView />
     </div>
 </template>
 
 <script>
+import TimeView from "./components/TimeView.vue";
+
 export default {
     name: 'App',
     data () {
         return {}
     },
-    methods: {}
+    methods: {},
+    components: {
+        TimeView
+    }
 }
 </script>
 
 <style>
+    @font-face {
+        font-family: SourceSansRegular;
+        src: url(fonts/SourceSansPro-Regular.ttf);
+    }
+    #app {
+        font-family: SourceSansRegular;
+    }
 </style>

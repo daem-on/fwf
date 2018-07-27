@@ -1,0 +1,217 @@
+
+@font-face {
+    font-family: SourceSansRegular;
+    src: url(fonts/SourceSansPro-Regular.ttf);
+}
+@font-face {
+    font-family: SourceSansLight;
+    src: url(fonts/SourceSansPro-Light.ttf);
+}
+
+body {
+    cursor: default;
+    overflow: hidden;
+}
+textarea {
+    width: 100%;
+    margin: 7px 0;
+    background-color: #282e38;
+    color: #ddd;
+    border: none;
+}
+input {
+    background-color: #282e38;
+    color: #ddd;
+    border: none;
+    height: 30px;
+}
+progress {
+    width: 100%;
+}
+li {
+    list-style-type: decimal;
+    font-family: SourceSansLight;
+    -webkit-user-select: auto;
+}
+h3 {
+    margin: 5px;
+    font-family: SourceSansLight;
+}
+h3 .material-icons {
+    font-size: 18;
+    padding-right: 3px;
+    position: relative;
+    top: 3px;
+}
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #333;
+}
+
+div.timeline-axis-text {
+    color: white;
+    cursor: default;
+    font-family: SourceSansLight;
+}
+div.timeline-customtime {
+    cursor: ew-resize;
+}
+div.timeline-axis-grid-minor {
+    border-color: #555;
+}
+div.timeline-axis-grid-major {
+    border-color: #777;
+}
+div.timeline-axis {
+    border: none;
+}
+div.timeline-event {
+    border-color: #0d254c;
+    /* background-color: #164696; */
+    background-color: #143977;
+    color: white;
+    cursor: default;
+    border-radius: 5px;
+}
+div.timeline-event-selected {
+    background-color: #356ac6;
+}
+div.timeline-event-range {
+    height: 60px;
+}
+body {
+    font-family: SourceSansRegular;
+    background: #20242b;
+    color: white;
+    -webkit-user-select: none;
+}
+div.timeline-navigation-delete {
+    display: none;
+}
+body {
+    margin: 0;
+}
+.timeline-frame {
+    border: 1px solid #333 !important;
+    /* background-color: #282e38; */
+}
+#sources, #inspector, #preview-box {
+    border: 1px solid #333;
+}
+#sources, #inspector {
+    overflow-y: auto;
+}
+#inspector, #preview-box {
+    margin-left: 10px;
+}
+#mainview {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    align-content: stretch;
+}
+#mainview div {
+    flex: 1;
+    padding: 5px;
+}
+#progress {
+    margin-bottom: 10px;
+    padding: 5px;
+}
+#timeview, #mainview {
+    padding: 10px;
+}
+#layout {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+}
+#toolbar {
+    padding: 10px;
+}
+#preview-box {
+    width: 490px;
+    text-align: center;
+}
+
+video {
+    background: #000;
+    margin-top: 5px;
+}
+table {
+    width: 100%;
+}
+
+.icon-column {
+    width: 80px;
+}
+.toolButton .material-icons {
+    font-size: 18;
+    padding-right: 3px;
+    position: relative;
+    top: 3px;
+}
+.shortButton .material-icons {
+    font-size: 20;
+}
+.fixButton {
+    position: relative;
+    top: 6px;
+}
+.shortButton {
+    /* border: 1px solid white; */
+    display: inline-block;
+    /* padding: 0px 5px; */
+    margin: 3px;
+    font-size: 80%;
+    cursor: default;
+    -webkit-user-select: none;
+    /* position: relative; */
+    /* top: 5px; */
+    padding: 5px;
+}
+.shortButton:hover, .toolButton:hover {
+    background-color: #282e38;
+}
+.toolButton {
+    /* border: 1px solid white; */
+    display: inline-block;
+    padding: 2px 7px 4px 7px;
+    margin: 3px;
+    cursor: pointer;
+    font-family: SourceSansLight;
+}
+.source {
+    height: 28px;
+    padding: 6px;
+    cursor: default;
+}
+i.bigicon {
+    font-size: 90px;
+    color: rgba(255, 255, 255, 0.1);
+    cursor: default;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+/* Progress bars styling */
+progress[value] {
+  -webkit-appearance: none;
+  appearance: none;
+
+  height: 5px;
+}
+
+progress[value]::-webkit-progress-bar {
+  background-color: #282e38;
+  border-radius: 2px;
+}
+
+progress[value]::-webkit-progress-value {
+    background: linear-gradient(to bottom, #26cc71 0%,#37664f 100%);
+    border-radius: 2px;
+}
