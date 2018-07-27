@@ -1,0 +1,46 @@
+<div id="splash" class="draggable">
+    <div id="content">
+        <div id="title">fwf</div>
+        <div id="copy">
+            Created by Csongor Zih, released under the MIT License.
+            Uses technologies from the ffmpeg project released under the
+            LGPL, uses the fluent-ffmpeg library under the MIT license,
+            uses Timeline from the CHAP Links Library under the Apache
+            License, uses Vue under the MIT License. Uses jsoneditor
+            and material-icons under the Apache License.
+        </div>
+        <!-- electron and express as well -->
+    </div>
+</div>
+
+<style>
+@font-face {
+    font-family: SourceSansLight;
+    src: url(fonts/SourceSansPro-Light.ttf);
+}
+#splash {
+    text-align: right;
+    background: linear-gradient(to bottom, #26cc71 0%,#37664f 100%);
+    color: white;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    font-family: SourceSansLight;
+}
+#content {
+    padding: 5%;
+}
+#copy {
+    font-size: 70%
+}
+#title {
+    font-size: 120;
+}
+.draggable {
+    -webkit-app-region: drag;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;
+}
+</style>

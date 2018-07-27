@@ -17,13 +17,13 @@ app.on('ready', () => {
 function showSplash() {
     splash = new BrowserWindow({width: 400, height: 270, transparent: true,
         frame: false, alwaysOnTop: true, resizable: false, title: "fwf"});
-    splash.loadFile("html/splash.html");
+    splash.loadFile("dist/static/splash.html");
 }
 
 function createWindow () {
     win = new BrowserWindow({width: 1000, height: 800, show: false, title: "fwf"})
 
-    win.loadFile('html/index.html')
+    win.loadFile('dist/index.html')
     //win.setProgressBar(0.7)
     win.on('closed', () => {
         win = null
@@ -39,8 +39,8 @@ ipcMain.on('showSplash', (event, arg) => {
     showSplash();
 })
 
-const VideoManager = require("./videoManager.js")
-const PreviewServer = require("./previewServer.js")
+const VideoManager = require("./main/videoManager.js")
+const PreviewServer = require("./main/previewServer.js")
 
 var path = app.getAppPath().replace('app.asar', 'app.asar.unpacked');
 var workdir = app.getPath("userData");
