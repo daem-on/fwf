@@ -29,7 +29,7 @@
                 <i class="material-icons bigicon">videocam_off</i>
             </div>
             <table>
-                <tr class="source" v-for="(source, index) in sources" :kex="source.id">
+                <tr class="source" v-for="(source, index) in sources" :key="source.id">
                     <td>
                         <a :title="source.path">{{ source.title }}</a>
                     </td>
@@ -63,7 +63,9 @@
                 Original duration: {{ Math.round(properties.maxduration) }}s <br>
                 Start: {{ Math.round(back(properties.start)) }}s <br>
                 End: {{ Math.round(back(properties.end)) }}s <br>
-                Filters: <br>
+                Filters:
+                <span v-if="!properties.filters[0]">&ltempty&gt</span>
+                <br>
                 <ul>
                     <li v-for="(filter, index) in properties.filters">
                         {{ JSON.stringify(filter) }}
@@ -96,5 +98,6 @@ const os = require('os');
 const fs = require('fs');
 </script>
 <script src="app.js"></script>
+<script src="timelineManager.js"></script>
 <script src="managers.js"></script>
 <script src="preview.js"></script>
