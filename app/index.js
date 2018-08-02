@@ -45,6 +45,12 @@ const PreviewServer = require("./previewServer.js")
 var path = app.getAppPath().replace('app.asar', 'app.asar.unpacked');
 var workdir = app.getPath("userData");
 
+var masterDir = workdir + "/master";
+
+if (!fs.existsSync(masterDir)){
+    fs.mkdirSync(masterDir);
+}
+
 var vidManager;
 
 if (os.platform() == "darwin") {
