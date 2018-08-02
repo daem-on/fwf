@@ -79,6 +79,9 @@ function initRender() {
         });
     }
 
+    path = dialog.showSaveDialog();
+    if (!path) return;
+    ipcRenderer.send("setOutput", path);
     ipcRenderer.send("setWorkFiles", workFiles);
     ipcRenderer.send("make");
 }

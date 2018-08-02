@@ -5,9 +5,9 @@ class VideoManager {
     constructor(path1=null, path2=null, workdir) {
         if (path1) ffmpeg.setFfmpegPath(path1);
         if (path2) ffmpeg.setFfprobePath(path2);
-        this.masterOutput = "wd/masterOutput";
         this.wd = workdir; // working directory, master files in subdirectory master
         this.scheme = {}; // common properties that all master files are rendered with
+        this.masterOutput = this.wd + "masterOutput";
 
         this.workFiles = []; // files imported in current project
         this.masterFiles = []; // list of processed "master" files
@@ -76,7 +76,7 @@ class VideoManager {
 
             var complex = false;
             // workFile.properties.advanced: additional render settings
-            if (!workFile.properties.advanced) {
+            if (workFile.properties.advanced) {
 
                 if (workFile.properties.advanced.inputs) { // add multiple inputs
                     var inputs = workFile.properties.inputs;
@@ -124,7 +124,7 @@ class VideoManager {
             this.setCallbacks(command, callbacks);
 
             var fileList = this.masterFiles;
-            var listFileName = 'wd/master/list.txt', fileNames = '';
+            var listFileName = this.wd + '/master/list.txt', fileNames = '';
 
             // create list with filenames
             fileList.forEach(function(fileName, index) {

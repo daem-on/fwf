@@ -96,6 +96,9 @@ ipcMain.on('setScheme', (event, arg) => {
 ipcMain.on('setWorkFiles', (event, arg) => {
     vidManager.workFiles = arg;
 })
+ipcMain.on('setOutput', (event, arg) => {
+    vidManager.masterOutput = arg;
+})
 ipcMain.on('getMeta', (event, arg) => {
     vidManager.getMeta(arg, (err, meta) => {
         if (!err) event.sender.send("meta", meta);
