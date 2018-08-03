@@ -1,4 +1,7 @@
+const {dialog} = require('electron')
 const express = require('express');
+const process = require('process');
+const PV_PORT = process.env.PV_PORT | 4000;
 
 // HTML video players are kind of hard to deal width
 // to stream from FFmpeg to the renderer, we need
@@ -33,8 +36,12 @@ class PreviewServer {
             .then(() => {res.end();})
         })
 
-        app.listen(4000);
-        console.log("Should be fine");
+        app.on("error", (e) => {
+            dialog.showErrorBox("Preview server error", e);
+        })
+
+        app.listen(PV_PORT);
+        console.log("Preview server running on " + PV_PORT);
     }
 }
 

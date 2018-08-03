@@ -1,7 +1,8 @@
 const {app, BrowserWindow, ipcMain, dialog} = require('electron')
 const os = require('os');
 const fs = require('fs');
-const DEBUG_MODE = false;
+const process = require('process');
+const DEBUG_MODE = process.env.DEBUG_MODE | false;
 let win;
 let splash;
 
@@ -68,7 +69,8 @@ if (os.platform() == "darwin") {
     dialog.showErrorBox(
         "System not supported",
         "This platform or architecture is currently not supported."
-    )
+    );
+    app.quit();
 }
 
 vidManager.scheme = {

@@ -32,6 +32,16 @@ function openFilterWindow() {
     filterWin.loadFile("html/dialogs/addFilter.html");
 }
 
+let textWin;
+function openTextWindow() {
+    textWin = new BrowserWindow({width: 800, height: 600,
+        title: "fwf: Text editor", backgroundColor: "#20242B"})
+    textWin.on('closed', () => {
+        textWin = null
+    });
+    textWin.loadFile("html/dialogs/textEditor.html");
+}
+
 let schemeWin;
 function openSchemeWindow() {
     schemeWin = new BrowserWindow({width: 800, height: 250,
