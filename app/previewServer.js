@@ -41,7 +41,7 @@ class PreviewServer {
         })
 
         app.listen(PV_PORT);
-        console.log("Preview server running on " + PV_PORT);
+        console.log("Preview server running on " + PV_PORT + ". Change PV_PORT for a different port.");
     }
 }
 

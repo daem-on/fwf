@@ -11,6 +11,7 @@ app.on('ready', () => {
     createWindow();
     win.once('ready-to-show', () => {
         splash.destroy();
+		splash = null;
         win.show();
     });
 });
@@ -25,16 +26,14 @@ function createWindow () {
     win = new BrowserWindow({width: 1000, height: 800, show: false, title: "fwf"})
 
     win.loadFile('html/index.html')
-    //win.setProgressBar(0.7)
     win.on('closed', () => {
         win = null
     })
-    app.on('window-all-closed', () => {
-        app.quit()
-    })
 }
 
-app.on('ready', createWindow)
+app.on('window-all-closed', function () {
+        app.quit()
+    })
 
 ipcMain.on('showSplash', (event, arg) => {
     showSplash();
@@ -89,6 +88,7 @@ let schemeWin;
 
 ipcMain.on('previewSettings', (event, arg) => {
     server.settings = arg;
+	console.log("Getting preview settings", arg)
 })
 
 // Messaging between windows

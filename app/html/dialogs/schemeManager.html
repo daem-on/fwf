@@ -82,13 +82,13 @@ const remote = require('electron').remote;
 
 function apply() {
     var scheme = {
-        resolution: $("#resolution")[0].value,
+        size: $("#resolution")[0].value,
         format: $("#format")[0].value,
         codec: $("#codec")[0].value,
         bitrate: $("#bitrate")[0].value,
         fps: $("#fps")[0].value,
     }
-    if ($("resize")[0].value == "pad") scheme.pad = true;
+    if ($("#resize")[0].value == "pad") scheme.pad = true;
     else scheme.pad = false;
 
     ipcRenderer.send("setScheme", scheme);
