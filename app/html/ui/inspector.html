@@ -1,0 +1,36 @@
+<h3><i class="material-icons">search</i>Inspector</h3>
+<div id="inspector" v-cloak>
+<div v-if="!properties.start">
+    Nothing selected. <br>
+    <i class="material-icons bigicon">visibility_off</i>
+</div>
+<div v-if="properties.start">
+    Valid: {{ properties.valid }} <br>
+    Original duration: {{ Math.round(properties.maxduration) }}s <br>
+    Start: {{ Math.round(back(properties.start)) }}s <br>
+    End: {{ Math.round(back(properties.end)) }}s <br>
+    Filters:
+    <span v-if="!properties.filters[0]">&ltempty&gt</span>
+    <br>
+    <ul>
+        <li v-for="(filter, index) in properties.filters">
+            {{ JSON.stringify(filter) }}
+            <a class="shortButton fixButton" @click="removeFilter(index)">
+                <i class="material-icons">clear</i></a></a>
+        </li>
+    </ul>
+
+    Seek: <input v-model="properties.seek" type="number">
+    <a class="shortButton fixButton" @click="setSeek()">
+        <i class="material-icons">done</i></a></a> <br>
+    <hr>
+    <a class="toolButton" onclick="openFilterWindow()">
+        <i class="material-icons">filter</i>Add filter</a>
+    <a class="toolButton" onclick="openTextWindow()">
+        <i class="material-icons">filter</i>Text editor</a>
+</div>
+</div>
+
+<script>
+inspectorManager.$mount("#inspector");
+</script>

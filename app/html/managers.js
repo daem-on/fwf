@@ -1,5 +1,4 @@
 var sourceManager = new Vue({
-    el: "#sources",
     data: {
         sources: imported,
     },
@@ -14,7 +13,6 @@ var sourceManager = new Vue({
 })
 
 var inspectorManager = new Vue({
-    el: "#inspector",
     data: {
         properties: {},
     },

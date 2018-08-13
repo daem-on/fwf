@@ -1,0 +1,24 @@
+<h3><i class="material-icons">camera_roll</i>Sources</h3>
+<div id="sources" v-cloak>
+    <div v-if="!sources[0]">
+        No sources. <br>
+        <i class="material-icons bigicon">videocam_off</i>
+    </div>
+    <table>
+        <tr class="source" v-for="(source, index) in sources" :key="source.id">
+            <td>
+                <a :title="source.path">{{ source.title }}</a>
+            </td>
+            <td class="icon-column">
+            <a @click="deleteItem(index)" class="shortButton">
+                <i class="material-icons">delete</i></a>
+            <a @click="addItem(index)" class="shortButton">
+                <i class="material-icons">add</i></a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script>
+sourceManager.$mount("#sources");
+</script>
