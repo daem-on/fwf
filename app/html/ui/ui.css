@@ -86,7 +86,7 @@ div.timeline-event-range {
 }
 body {
     font-family: SourceSansRegular;
-    background: #0A151E;
+    background: #20242b;
     color: white;
     -webkit-user-select: none;
     font-size: 14;
@@ -149,7 +149,8 @@ video {
     flex: 1;
 }
 .rnd-container {
-    border: 1px solid #555;
+    /* border: 1px solid #555; */
+    background: #0A151E;
     padding: 0px 4px 0px 4px;
     margin: 6px;
     border-radius: 5px;

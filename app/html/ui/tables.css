@@ -1,0 +1,40 @@
+.table-back {
+    background: #272c35;
+    height: 50%;
+    padding: 0px !important;
+    border-radius: 5px;
+}
+table {
+    table-layout: fixed;
+    width: 100%;
+    background: #272c35;
+    border-radius: 5px;
+}
+th, td {
+    vertical-align: top;
+    font-size: 15;
+    line-height: 24px;
+    padding: 0 7px 0 7px;
+}
+td {
+    /* border-top: 4px solid #0A151E; */
+    /* border-top: 1px solid #2c323d; */
+}
+tr:nth-child(even) {
+    background: #2c323d;
+}
+table {
+    border-collapse: collapse;
+}
+th {
+    font-weight: normal;
+    text-align: left;
+    font-variant-caps: all-small-caps;
+}
+td > input {
+    background: none;
+    line-height: inherit;
+    width: 60%;
+    height: auto;
+    color: #66C3FF;
+}
