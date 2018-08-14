@@ -89,9 +89,10 @@ div.timeline-event-range {
 }
 body {
     font-family: SourceSansRegular;
-    background: #20242b;
+    background: #0A151E;
     color: white;
     -webkit-user-select: none;
+    font-size: 14;
 }
 div.timeline-navigation-delete {
     display: none;
@@ -132,9 +133,6 @@ body {
     flex-direction: column;
     align-content: space-between;
 }
-#toolbar {
-    padding: 10px;
-}
 #preview-box {
     width: 490px;
     text-align: center;
@@ -143,13 +141,6 @@ body {
 video {
     background: #000;
     margin-top: 5px;
-}
-table {
-    width: 100%;
-}
-
-.icon-column {
-    width: 80px;
 }
 .toolButton .material-icons {
     font-size: 18;
@@ -187,11 +178,7 @@ table {
     cursor: pointer;
     font-family: SourceSansLight;
     border-radius: 5px;
-}
-.source {
-    height: 28px;
-    padding: 6px;
-    cursor: default;
+    background: #122330;
 }
 i.bigicon {
     font-size: 90px;

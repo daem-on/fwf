@@ -5,32 +5,72 @@
     <i class="material-icons bigicon">visibility_off</i>
 </div>
 <div v-if="properties.start">
-    Valid: {{ properties.valid }} <br>
-    Original duration: {{ Math.round(properties.maxduration) }}s <br>
-    Start: {{ Math.round(back(properties.start)) }}s <br>
-    End: {{ Math.round(back(properties.end)) }}s <br>
-    Filters:
-    <span v-if="!properties.filters[0]">&ltempty&gt</span>
-    <br>
-    <ul>
-        <li v-for="(filter, index) in properties.filters">
-            {{ JSON.stringify(filter) }}
-            <a class="shortButton fixButton" @click="removeFilter(index)">
-                <i class="material-icons">clear</i></a></a>
-        </li>
-    </ul>
-
-    Seek: <input v-model="properties.seek" type="number">
-    <a class="shortButton fixButton" @click="setSeek()">
-        <i class="material-icons">done</i></a></a> <br>
-    <hr>
-    <a class="toolButton" onclick="openFilterWindow()">
-        <i class="material-icons">filter</i>Add filter</a>
-    <a class="toolButton" onclick="openTextWindow()">
-        <i class="material-icons">filter</i>Text editor</a>
+    <div class="table-back" style="height:45%">
+        <table id="inspect-table">
+            <tr>
+                <th>Name</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Valid</td>
+                <td>{{ properties.valid }}</td>
+            </tr>
+            <tr>
+                <td>Original duration</td>
+                <td>{{ Math.round(properties.maxduration) }}s</td>
+            </tr>
+            <tr>
+                <td>Start</td>
+                <td>{{ Math.round(back(properties.end)) }}s</td>
+            </tr>
+            <tr>
+                <td>End</td>
+                <td>{{ Math.round(properties.maxduration) }}s</td>
+            </tr>
+            <tr>
+                <td>Seek</td>
+                <td><input v-model="properties.seek" type="number">
+                <a class="iconButton" @click="setSeek()">
+                    <i class="material-icons">done</i></a></a></td>
+            </tr>
+            <tr>
+                <td>Filters:</td>
+                <td><span v-if="!properties.filters[0]">&ltempty&gt</span></td>
+            </tr>
+            <tr v-for="(filter, index) in properties.filters">
+                <td colspan=2>
+                <span class="filter">{{ JSON.stringify(filter) }}</span>
+                <a class="iconButton" @click="removeFilter(index)">
+                    <i class="material-icons">clear</i></a></a>
+                </td>
+            </tr>
+        </table>
+    </div><br>
 </div>
 </div>
 
 <script>
 inspectorManager.$mount("#inspector");
 </script>
+
+<style>
+table {
+    border-collapse: collapse;
+}
+th {
+    font-weight: normal;
+    text-align: left;
+    font-variant-caps: all-small-caps;
+}
+td > input {
+    background: none;
+    line-height: inherit;
+    width: 60%;
+    height: auto;
+    color: #66C3FF;
+}
+.filter {
+    color: #4F5D75;
+}
+
+</style>

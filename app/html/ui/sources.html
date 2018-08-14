@@ -4,21 +4,67 @@
         No sources. <br>
         <i class="material-icons bigicon">videocam_off</i>
     </div>
-    <table>
-        <tr class="source" v-for="(source, index) in sources" :key="source.id">
-            <td>
-                <a :title="source.path">{{ source.title }}</a>
-            </td>
-            <td class="icon-column">
-            <a @click="deleteItem(index)" class="shortButton">
-                <i class="material-icons">delete</i></a>
-            <a @click="addItem(index)" class="shortButton">
-                <i class="material-icons">add</i></a>
-            </td>
-        </tr>
-    </table>
+    <div class="table-back"  v-if="sources[0]">
+        <table class="srctable">
+            <tr>
+                <th>Name</th><th class="icon-column">Actions</th>
+            </tr>
+            <tr class="source" v-for="(source, index) in sources" :key="source.id">
+                <td>
+                    <a :title="source.path">{{ source.title }}</a>
+                </td>
+                <td class="icon-column">
+                <a @click="deleteItem(index)" class="iconButton">
+                    <i class="material-icons">delete</i></a>
+                <a @click="addItem(index)" class="iconButton">
+                    <i class="material-icons">add</i></a>
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>
 
 <script>
 sourceManager.$mount("#sources");
 </script>
+
+<style>
+.table-back {
+    background: #132028;
+    height: 50%;
+    padding: 0px !important;
+    border-radius: 5px;
+}
+table {
+    table-layout: fixed;
+    width: 100%;
+    background: #132028;
+    border-radius: 5px;
+}
+th, td {
+    vertical-align: top;
+    font-size: 15;
+    line-height: 24px;
+    padding: 0 7px 0 7px;
+}
+td {
+    /* border-top: 4px solid #0A151E; */
+    border-top: 1px solid #1f2b33;
+}
+.iconButton {
+    position: relative;
+    top: 2;
+    float: right;
+}
+.iconButton > i.material-icons {
+    font-size: 17px;
+}
+.source {
+    padding: 6px;
+    cursor: default;
+}
+.icon-column {
+    width: 80px;
+    text-align: right;
+}
+</style>
