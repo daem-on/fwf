@@ -9,6 +9,7 @@ table {
     width: 100%;
     background: #272c35;
     border-radius: 5px;
+    word-break: break-all;
 }
 th, td {
     vertical-align: top;

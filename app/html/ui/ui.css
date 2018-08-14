@@ -103,6 +103,7 @@ body {
 }
 #sources-cont, #inspector-cont {
     overflow-y: auto;
+    overflow-x: hidden;
 }
 #inspector-cont, #preview-box {
     margin-left: 10px;
