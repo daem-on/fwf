@@ -207,3 +207,7 @@ function load() {
 
     timeline.redraw();
 }
+
+window.addEventListener("resize", () => {
+    timeline.checkResize();
+})
