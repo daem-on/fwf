@@ -46,10 +46,19 @@
 </style>
 
 <script>
+video = $("#preview")[0];
+
 $('#preview').on('loadstart', function (event) {
     $("#loading").addClass('display');
+    startTime = back(timeline.getCustomTime());
 });
 $('#preview').on('canplay', function (event) {
     $("#loading").removeClass('display');
+});
+$('#preview').on('playing', function (event) {
+    timer = setInterval(incrementCustom, 100)
+});
+$('#preview').on('pause', function (event) {
+    clearInterval(timer);
 });
 </script>

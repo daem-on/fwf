@@ -15,6 +15,14 @@ function preview() {
     setSource("http://localhost:4000/filtered");
 }
 
+var timer, video, startTime = 0;
+
+function incrementCustom() {
+    timeline.setCustomTime(over(startTime + video.currentTime));
+    timeline.redraw();
+    ontimechange();
+}
+
 function setSource(url) {
     $("#preview")[0].innerHTML = '<source src="' + url + '" type="video/mp4">';
     $("#preview")[0].load();
