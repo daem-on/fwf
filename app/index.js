@@ -88,7 +88,6 @@ let schemeWin;
 
 ipcMain.on('previewSettings', (event, arg) => {
     server.settings = arg;
-	console.log("Getting preview settings", arg)
 })
 
 // Messaging between windows

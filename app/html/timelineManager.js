@@ -18,6 +18,7 @@ links.events.addListener(timeline, 'select', onselect);
 links.events.addListener(timeline, 'delete', ondelete);
 links.events.addListener(timeline, 'changed', onchanged);
 links.events.addListener(timeline, 'change', onchange);
+links.events.addListener(timeline, 'timechange', ontimechange);
 
 function ondelete() {}
 function onchanged() {
@@ -35,6 +36,15 @@ function onchange() {
     else
         timeline.changeItem(timeline.getSelection()[0].row, {valid: false})
 }
+function ontimechange() {
+    var t = timeline.getCustomTime()
+    $("#customTimeCount").html(
+        pad(t.getHours()) + ":" +
+        pad(t.getMinutes()) + ":" +
+        pad(t.getSeconds()))
+}
+
+let pad = number => number <= 99 ? ("0"+number).slice(-2) : number;
 
 // main data storage for timeline
 tldata = []
@@ -120,8 +130,7 @@ function getEndTime() {
 window.addEventListener("keyup", keyup)
 function keyup(e) {
     if (e.key == "Delete" || e.key == "Backspace") {
-        timeline.deleteItem(timeline.getSelection()[0].row)
-        updateInspect();
+        deleteSelected();
     }
     if (e.key == "s") {
         split();
@@ -130,4 +139,9 @@ function keyup(e) {
     if (e.key == "p") {
         preview();
     }
+}
+
+function deleteSelected() {
+    timeline.deleteItem(timeline.getSelection()[0].row)
+    updateInspect();
 }

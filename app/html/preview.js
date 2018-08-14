@@ -1,5 +1,3 @@
-var video = $("#preview")[0];
-
 function preview() {
     if (!timeline.getSelection()[0]) return;
 
@@ -18,13 +16,13 @@ function preview() {
 }
 
 function setSource(url) {
-    video.innerHTML = '<source src="' + url + '" type="video/mp4">';
-    video.load();
+    $("#preview")[0].innerHTML = '<source src="' + url + '" type="video/mp4">';
+    $("#preview")[0].load();
 }
 
 function pausePreview() {
-    video.pause();
+    $("#preview")[0].pause();
 }
 function resumePreview() {
-    video.play();
+    $("#preview")[0].play();
 }

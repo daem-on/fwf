@@ -99,6 +99,7 @@ function initRender() {
 ipcRenderer.on("progress", (e, m) => {
     console.dir(m);
     $("#bar")[0].value = m.percent;
+    $("#status").html(Math.round(m.percent) + "%");
 })
 
 ipcRenderer.on("done", () => {
