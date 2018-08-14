@@ -45,7 +45,7 @@
 }
 #view > div {
     flex: 1;
-    margin-left: 20px;
+    margin: 0 15px;
 }
 h3 {
     margin: 0;
@@ -67,6 +67,8 @@ window.addEventListener("mouseup", redraw)
 
 var img = new Image();
 img.src = '../res/sample.jpg';
+
+img.onload = redraw;
 
 var h = 400;
 var w = 600;

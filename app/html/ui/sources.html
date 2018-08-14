@@ -1,5 +1,7 @@
 <h3><i class="material-icons">camera_roll</i>Sources</h3>
-<div id="sources" v-cloak>
+<div id="sources" v-cloak
+ondrop="dropFiles(event)" ondragover="dragOverHandler(event)"
+ondragenter="dragEnterHandler(event)">
     <div v-if="!sources[0]">
         No sources. <br>
         <i class="material-icons bigicon">videocam_off</i>

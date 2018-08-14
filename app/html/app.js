@@ -34,7 +34,7 @@ function openFilterWindow() {
 
 let textWin;
 function openTextWindow() {
-    textWin = new BrowserWindow({width: 800, height: 600,
+    textWin = new BrowserWindow({width: 900, height: 550,
         title: "fwf: Text editor", backgroundColor: "#20242B"})
     textWin.on('closed', () => {
         textWin = null
@@ -97,7 +97,6 @@ function initRender() {
 }
 
 ipcRenderer.on("progress", (e, m) => {
-    console.dir(m);
     $("#bar")[0].value = m.percent;
     $("#status").html(Math.round(m.percent) + "%");
 })
@@ -120,13 +119,18 @@ ipcRenderer.on("error", (event, arg) => {
     dialog.showErrorBox("Rendering Error", arg)
 })
 
-function getMeta(path) {
-    return new Promise((resolve, reject) => {
-        ipcRenderer.send("getMeta", path);
-        ipcRenderer.once("meta", (e, m) => {
-            resolve(m);
+// add souce once meta is retreived
+ipcRenderer.on("meta", (event, arg) => {
+        imported.push({
+            id: ++iid,
+            duration: arg.format.duration,
+            path: arg.format.filename,
+            title: getTitle(arg.format.filename),
         })
-    })
+})
+
+function addSourceByPath(path) {
+    ipcRenderer.send("getMeta", path);
 }
 
 function openFile() {
@@ -138,15 +142,7 @@ function openFile() {
     if (!array) return;
 
     for (var i = 0; i < array.length; i++) {
-        var path = array[i];
-        getMeta(path).then((meta) => {
-            imported.push({
-                id: ++iid,
-                duration: meta.format.duration,
-                path: path,
-                title: getTitle(path),
-            })
-        })
+        addSourceByPath(array[i]);
     }
 }
 
