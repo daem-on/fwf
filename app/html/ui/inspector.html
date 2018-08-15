@@ -1,0 +1,61 @@
+<h3><i class="material-icons">search</i>Inspector</h3>
+<div id="inspector" v-cloak>
+<div v-if="!properties.start">
+    Nothing selected. <br>
+    <i class="material-icons bigicon">visibility_off</i>
+</div>
+<div v-if="properties.start">
+    <div class="table-back" style="height:45%">
+        <table id="inspect-table">
+            <tr>
+                <th>Name</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Valid</td>
+                <td>{{ properties.valid }}</td>
+            </tr>
+            <tr>
+                <td>Original duration</td>
+                <td>{{ Math.round(properties.maxduration) }}s</td>
+            </tr>
+            <tr>
+                <td>Start</td>
+                <td>{{ Math.round(back(properties.start)) }}s</td>
+            </tr>
+            <tr>
+                <td>End</td>
+                <td>{{ Math.round(back(properties.end)) }}s</td>
+            </tr>
+            <tr>
+                <td>Seek</td>
+                <td><input v-model="properties.seek" type="number">
+                <a class="iconButton" @click="setSeek()">
+                    <i class="material-icons">done</i></a></a></td>
+            </tr>
+            <tr>
+                <td>Filters:</td>
+                <td><span v-if="!properties.filters[0]">&ltempty&gt</span></td>
+            </tr>
+            <tr v-for="(filter, index) in properties.filters">
+                <td colspan=2>
+                <span class="filter">{{ JSON.stringify(filter) }}</span>
+                <a class="iconButton" @click="removeFilter(index)">
+                    <i class="material-icons">clear</i></a></a>
+                </td>
+            </tr>
+        </table>
+    </div><br>
+</div>
+</div>
+
+<script>
+inspectorManager.$mount("#inspector");
+</script>
+
+<style>
+.filter {
+    color: #4F5D75;
+}
+
+</style>

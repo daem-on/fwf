@@ -1,5 +1,4 @@
 var sourceManager = new Vue({
-    el: "#sources",
     data: {
         sources: imported,
     },
@@ -14,7 +13,6 @@ var sourceManager = new Vue({
 })
 
 var inspectorManager = new Vue({
-    el: "#inspector",
     data: {
         properties: {},
     },
@@ -26,9 +24,10 @@ var inspectorManager = new Vue({
         },
         setSeek: function() {
             seek = parseInt(this.properties.seek)
+            delta = seek - getSelected().seek;
             this.setProperty("seek", seek);
             timeline.changeItem(timeline.getSelection()[0].row, {
-                start: over(back(getSelected().start) + seek)
+                start: over(back(getSelected().start) + delta)
             });
         },
         removeFilter: function(index) {

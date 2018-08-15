@@ -1,25 +1,39 @@
-<link rel="stylesheet" type="text/css" href="../style.css">
+<link rel="stylesheet" type="text/css" href="../ui/ui.css">
+<link rel="stylesheet" type="text/css" href="../ui/tables.css">
 
 <h2>Text editor</h2>
 
 <div id="view">
     <div>
-        <canvas id="canvas"></canvas>
+        <canvas id="canvas" ondragenter="dragEnterHandler(event)"
+        ondrop="dropImage(event)" ondragover="dragOverHandler(event)"></canvas>
     </div>
     <div>
         <div id="settings">
-            <label>Text</label><br>
-            <input id="text" value="Hello World"><br>
-            <label>X</label><br>
-            <input id="x" value=0 type="number"><br>
-            <label>Y</label><br>
-            <input id="y" value=50 type="number"><br>
-            <label>Color</label><br>
-            <input id="color" value="white"><br>
-            <label>Size</label><br>
-            <input id="size" value=30 type="number"><br>
-            <label>Font</label><br>
-            <input id="font" value="serif"><br>
+            <div class="table-back">
+            <table>
+                <tr>
+                    <th>Setting</th><th>Value</th>
+                </tr>
+                <tr><td>Text</td><td>
+                <input id="text" value="Hello World"></td></tr>
+                <tr><td>X</td><td>
+                <input id="x" value=0 type="number"></td></tr>
+                <tr><td>Y</td><td>
+                <input id="y" value=50 type="number"></td></tr>
+                <tr><td>Color</td><td>
+                <input id="color" value="white"></td></tr>
+                <tr><td>Size</td><td>
+                <input id="size" value=30 type="number"></td></tr>
+                <tr><td>Font</td><td>
+                <input id="font" value="serif"></td></tr>
+                <tr><td>Fontfile</td><td>
+                <input id="fontfile"
+                    value="path/to/fontfile.ttf"
+                    ondrop="dropPath(event)"
+                    dragover="dragOverHandler()"></td></tr>
+            </table>
+            </div>
         </div>
         <a class="toolButton" onclick="add()">Add text</a>
     </div>
@@ -31,7 +45,7 @@
 }
 #view > div {
     flex: 1;
-    margin-left: 20px;
+    margin: 0 15px;
 }
 h3 {
     margin: 0;
@@ -54,6 +68,8 @@ window.addEventListener("mouseup", redraw)
 var img = new Image();
 img.src = '../res/sample.jpg';
 
+img.onload = redraw;
+
 var h = 400;
 var w = 600;
 setDimensions();
@@ -75,18 +91,45 @@ function redraw() {
     ctx.fillText(getVal("text"), getVal("x"), getVal("y"))
 }
 
-function loadTemplate(name) {
-    editor.set(templates[name])
-}
-
-function fromClipboard() {
-    editor.setText(clipboard.readText())
-}
-
 function add() {
+    var filter = {
+        filter: "drawtext",
+        options: {
+            fontfile: getVal("fontfile"),
+            text: getVal("text"),
+            fontsize: getVal("size"),
+            x: getVal("x"),
+            y: getVal("y"),
+            fontcolor: getVal("color")
+        }
+    }
     ipcRenderer.send("toMainWindow", {
         channel: "addFilter",
-        value: editor.get(),
+        value: filter,
     });
+}
+
+function dropPath(ev) {
+    ev.preventDefault();
+    if (ev.dataTransfer.items[0].kind === 'file') {
+        var file = ev.dataTransfer.items[0].getAsFile();
+        ev.target.value = file.path;
+    }
+}
+function dropImage(ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+    if (ev.dataTransfer.items[0].kind === 'file') {
+        var file = ev.dataTransfer.items[0].getAsFile();
+        img.src = file.path;
+        redraw();
+    }
+}
+function dragOverHandler(ev) {
+    ev.preventDefault();
+}
+function dragEnterHandler(ev) {
+    event.dataTransfer.dropEffect = "move";
+    ev.preventDefault();
 }
 </script>

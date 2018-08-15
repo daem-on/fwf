@@ -1,0 +1,50 @@
+<h3><i class="material-icons">camera_roll</i>Sources</h3>
+<div id="sources" v-cloak
+ondrop="dropFiles(event)" ondragover="dragOverHandler(event)"
+ondragenter="dragEnterHandler(event)">
+    <div v-if="!sources[0]">
+        No sources. <br>
+        <i class="material-icons bigicon">videocam_off</i>
+    </div>
+    <div class="table-back"  v-if="sources[0]">
+        <table class="srctable">
+            <tr>
+                <th>Name</th><th class="icon-column">Actions</th>
+            </tr>
+            <tr class="source" v-for="(source, index) in sources" :key="source.id">
+                <td>
+                    <a :title="source.path">{{ source.title }}</a>
+                </td>
+                <td class="icon-column">
+                <a @click="deleteItem(index)" class="iconButton">
+                    <i class="material-icons">delete</i></a>
+                <a @click="addItem(index)" class="iconButton">
+                    <i class="material-icons">add</i></a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<script>
+sourceManager.$mount("#sources");
+</script>
+
+<style>
+.iconButton {
+    position: relative;
+    top: 2;
+    float: right;
+}
+.iconButton > i.material-icons {
+    font-size: 17px;
+}
+.source {
+    padding: 6px;
+    cursor: default;
+}
+.icon-column {
+    width: 80px;
+    text-align: right;
+}
+</style>

@@ -1,5 +1,3 @@
-var video = $("#preview")[0];
-
 function preview() {
     if (!timeline.getSelection()[0]) return;
 
@@ -17,14 +15,22 @@ function preview() {
     setSource("http://localhost:4000/filtered");
 }
 
+var timer, video, startTime = 0;
+
+function incrementCustom() {
+    timeline.setCustomTime(over(startTime + video.currentTime));
+    timeline.redraw();
+    ontimechange();
+}
+
 function setSource(url) {
-    video.innerHTML = '<source src="' + url + '" type="video/mp4">';
-    video.load();
+    $("#preview")[0].innerHTML = '<source src="' + url + '" type="video/mp4">';
+    $("#preview")[0].load();
 }
 
 function pausePreview() {
-    video.pause();
+    $("#preview")[0].pause();
 }
 function resumePreview() {
-    video.play();
+    $("#preview")[0].play();
 }

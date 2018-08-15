@@ -1,0 +1,105 @@
+<script>window.$ = window.jQuery = require('./lib/jquery-3.3.1.min.js');</script>
+<script src="lib/timeline.js"></script>
+<script src="lib/vue.min.js"></script>
+<script src="lib/customLabels.js"></script>
+<link rel="stylesheet" type="text/css" href="lib/timeline.css">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="fonts/iconfont/material-icons.css">
+
+<div id="layout">
+    <div id="toolbar">
+        <a onclick="openFile()" class="toolButton">
+            <i class="material-icons">input</i>Add source</a>
+        <a onclick="initRender()" class="toolButton">
+            <i class="material-icons">movie</i>Render</a>
+        <a onclick="openSchemeWindow()" class="toolButton">
+            <i class="material-icons">switch_video</i>Scheme</a>
+        <a onclick="save()" class="toolButton">
+            <i class="material-icons">save</i>Save</a>
+        <a onclick="load()" class="toolButton">
+            <i class="material-icons">redo</i>Load</a>
+        <a onclick="showSplash()" class="toolButton">
+            <i class="material-icons">info</i>About</a>
+    </div>
+    <div id="mainview">
+        <div id="sources" v-cloak>
+            <h3><i class="material-icons">camera_roll</i>Sources</h3>
+            <div v-if="!sources[0]">
+                No sources. <br>
+                <i class="material-icons bigicon">videocam_off</i>
+            </div>
+            <table>
+                <tr class="source" v-for="(source, index) in sources" :key="source.id">
+                    <td>
+                        <a :title="source.path">{{ source.title }}</a>
+                    </td>
+                    <td class="icon-column">
+                    <a @click="deleteItem(index)" class="shortButton">
+                        <i class="material-icons">delete</i></a>
+                    <a @click="addItem(index)" class="shortButton">
+                        <i class="material-icons">add</i></a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="preview-box">
+            <h3><i class="material-icons">filter_frames</i>Preview</h3>
+            <video autoplay id="preview" width="480" height="240"></video>
+            <a class="shortButton" onclick="preview()" title="Start preview">
+                <i class="material-icons">queue_play_next</i></a>
+            <a class="shortButton" onclick="resumePreview()" title="Resume">
+                <i class="material-icons">play_arrow</i></a>
+            <a class="shortButton" onclick="pausePreview()" title="Pause">
+                <i class="material-icons">pause</i></a>
+        </div>
+        <div id="inspector" v-cloak>
+            <h3><i class="material-icons">search</i>Inspector</h3>
+            <div v-if="!properties.start">
+                Nothing selected. <br>
+                <i class="material-icons bigicon">visibility_off</i>
+            </div>
+            <div v-if="properties.start">
+                Valid: {{ properties.valid }} <br>
+                Original duration: {{ Math.round(properties.maxduration) }}s <br>
+                Start: {{ Math.round(back(properties.start)) }}s <br>
+                End: {{ Math.round(back(properties.end)) }}s <br>
+                Filters:
+                <span v-if="!properties.filters[0]">&ltempty&gt</span>
+                <br>
+                <ul>
+                    <li v-for="(filter, index) in properties.filters">
+                        {{ JSON.stringify(filter) }}
+                        <a class="shortButton fixButton" @click="removeFilter(index)">
+                            <i class="material-icons">clear</i></a></a>
+                    </li>
+                </ul>
+
+                Seek: <input v-model="properties.seek" type="number">
+                <a class="shortButton fixButton" @click="setSeek()">
+                    <i class="material-icons">done</i></a></a> <br>
+                <hr>
+                <a class="toolButton" onclick="openFilterWindow()">
+                    <i class="material-icons">filter</i>Add filter</a>
+                <a class="toolButton" onclick="openTextWindow()">
+                    <i class="material-icons">filter</i>Text editor</a>
+            </div>
+        </div>
+    </div>
+    <div id="timeview">
+        <div id="progress">
+            <progress id="bar" max="100" value="0">
+        </div>
+        <div id="timelinecont"></div>
+    </div>
+</div>
+
+<script>
+const {ipcRenderer, clipboard} = require('electron');
+const {dialog, BrowserWindow} = require('electron').remote;
+const os = require('os');
+const fs = require('fs');
+</script>
+<script src="app.js"></script>
+<script src="timelineManager.js"></script>
+<script src="managers.js"></script>
+<script src="preview.js"></script>
