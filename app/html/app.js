@@ -22,35 +22,7 @@ function back(d) {
     return (d - new Date(1970, 0, 1)) / 1000;
 }
 
-let filterWin;
-function openFilterWindow() {
-    filterWin = new BrowserWindow({width: 800, height: 600,
-        title: "fwf: Filter editor", backgroundColor: "#20242B"})
-    filterWin.on('closed', () => {
-        filterWin = null
-    });
-    filterWin.loadFile("html/dialogs/addFilter.html");
-}
-
-let textWin;
-function openTextWindow() {
-    textWin = new BrowserWindow({width: 900, height: 550,
-        title: "fwf: Text editor", backgroundColor: "#20242B"})
-    textWin.on('closed', () => {
-        textWin = null
-    });
-    textWin.loadFile("html/dialogs/textEditor.html");
-}
-
-let schemeWin;
-function openSchemeWindow() {
-    schemeWin = new BrowserWindow({width: 800, height: 250,
-        title: "fwf: Scheme manager", backgroundColor: "#20242B"})
-    schemeWin.on('closed', () => {
-        schemeWin = null
-    });
-    schemeWin.loadFile("html/dialogs/schemeManager.html");
-}
+var pluginMan = new PluginManager();
 
 function addFilter(filter) {
     if (timeline.getSelection()[0]) {
