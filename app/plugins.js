@@ -1,5 +1,6 @@
 const fs = require("fs");
 const {app, BrowserWindow} = require("electron");
+const path = require("path");
 
 class PluginManager {
     constructor(mainWindow) {
@@ -16,13 +17,14 @@ class PluginManager {
 
     }
 
-    registerPlugin(name, path, type, width, height) {
-        this.pluginList[name] = {
-            path: path,
-            type: type,
-            width: width,
-            height: height
-        }
+    addPluginFromPackage(location) {
+        var settings = JSON.parse(fs.readFileSync(location, "utf8"));
+        settings.path = path.dirname(location) + settings.file;
+        this.registerPlugin(settings.name, settings);
+    }
+
+    registerPlugin(name, settings) {
+        this.pluginList[name] = settings;
         this.saveList();
     }
 

@@ -95,6 +95,9 @@ ipcMain.on('pluginListWin', () => {
 ipcMain.on('openPlugin', (event, arg) => {
     pluginMan.openPlugin(arg);
 })
+ipcMain.on('addPluginFromPackage', (event, arg) => {
+    pluginMan.addPluginFromPackage(arg);
+})
 
 let server = new PreviewServer(vidManager);
 

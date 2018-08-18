@@ -1,15 +1,22 @@
 var imported = []; // store for imported clips, source of truth for sourceManager
 var iid = 0; // last id assigned
 
-function getTitle(path) {
-    let exp;
+function registerPlugin() {
+    var pluginPath = dialog.showOpenDialog({
+        filters: [
+            {name: "JSON file", extensions: ["json"]}
+        ], multiSelections: false
+    });
+    if (pluginPath[0])
+        ipcRenderer.send("addPluginFromPackage", pluginPath[0]);
+}
 
-    // this is ridiculous
-    if (os.platform == "darwin") // forward slash
-        exp = RegExp(/\/([^/]*)\.\w*$/)
-    else if (os.platform == "win32") // backslash
-        exp = RegExp(/\\([^\\]*)\.\w*$/)
-    return exp.exec(path)[1];
+function pluginListWin() {
+    ipcRenderer.send("pluginListWin")
+}
+
+function openPlugin(plugin) {
+    ipcRenderer.send("openPlugin", plugin)
 }
 
 function over(s) {
@@ -58,9 +65,9 @@ function initRender() {
         });
     }
 
-    path = dialog.showSaveDialog();
-    if (!path) return;
-    ipcRenderer.send("setOutput", path);
+    spath = dialog.showSaveDialog();
+    if (!spath) return;
+    ipcRenderer.send("setOutput", spath);
     ipcRenderer.send("setWorkFiles", workFiles);
     ipcRenderer.send("make");
 }
@@ -94,12 +101,12 @@ ipcRenderer.on("meta", (event, arg) => {
             id: ++iid,
             duration: arg.format.duration,
             path: arg.format.filename,
-            title: getTitle(arg.format.filename),
+            title: path.basename(arg.format.filename),
         })
 })
 
-function addSourceByPath(path) {
-    ipcRenderer.send("getMeta", path);
+function addSourceByPath(spath) {
+    ipcRenderer.send("getMeta", spath);
 }
 
 function openFile() {
