@@ -7,7 +7,7 @@ function registerPlugin() {
             {name: "JSON file", extensions: ["json"]}
         ], multiSelections: false
     });
-    if (pluginPath[0])
+    if (pluginPath)
         ipcRenderer.send("addPluginFromPackage", pluginPath[0]);
 }
 
