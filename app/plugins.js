@@ -19,7 +19,7 @@ class PluginManager {
 
     addPluginFromPackage(location) {
         var settings = JSON.parse(fs.readFileSync(location, "utf8"));
-        settings.path = path.dirname(location) + settings.file;
+        settings.path = path.join(path.dirname(location), settings.file);
         this.registerPlugin(settings.name, settings);
     }
 
@@ -70,11 +70,14 @@ class PluginManager {
             width: this.pluginList[name].width,
             height: this.pluginList[name].height,
             parent: this.mainWindow,
-            title: "fwf: " + name, backgroundColor: "#20242B"});
+            title: "fwf: " + name,
+            backgroundColor: "#20242B"
+        });
         this.windowList.push(pluginWindow);
         pluginWindow.on('closed', () => {
             pluginWindow = null
         });
+        console.log(this.pluginList[name].path);
         pluginWindow.loadFile(this.pluginList[name].path);
     }
 
