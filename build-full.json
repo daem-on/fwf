@@ -11,6 +11,12 @@
             "bin/darwin"
         ]
     },
+    "win": {
+        "target": "portable",
+        "files": [
+            "bin/win64"
+        ]
+    },
     "files": [
         "**/*",
         "!bin"

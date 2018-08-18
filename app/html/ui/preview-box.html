@@ -1,16 +1,20 @@
 <h3><i class="material-icons">filter_frames</i>Preview</h3>
 <video autoplay id="preview" width="480" height="240"></video>
-<div class="prev-toolbar">
-    <a class="shortButton no-border" onclick="preview()" title="Start preview">
-        <i class="material-icons">queue_play_next</i></a>
-    <a class="shortButton" onclick="resumePreview()" title="Resume">
-        <i class="material-icons">play_arrow</i></a>
-    <a class="shortButton" onclick="pausePreview()" title="Pause">
-        <i class="material-icons">pause</i></a>
-    <a class="shortButton" onclick="openFilterWindow()" title="Add filter">
-        <i class="material-icons">filter</i></a>
-    <a class="shortButton" onclick="openTextWindow()" title="Add text">
-        <i class="material-icons">text_fields</i></a>
+<div style="margin-top:6px">
+    <div class="prev-toolbar">
+        <a class="shortButton no-border" onclick="preview()" title="Start preview">
+            <i class="material-icons">queue_play_next</i></a>
+        <a class="shortButton" onclick="resumePreview()" title="Resume">
+            <i class="material-icons">play_arrow</i></a>
+        <a class="shortButton" onclick="pausePreview()" title="Pause">
+            <i class="material-icons">pause</i></a>
+        <a class="shortButton" onclick="openPlugin('filter')" title="Add filter">
+            <i class="material-icons">filter</i></a>
+        <a class="shortButton" onclick="openPlugin('textEditor')" title="Add text">
+            <i class="material-icons">text_fields</i></a>
+        <a class="shortButton" onclick="pluginListWin()" title="Open plugin...">
+            <i class="material-icons">settings_input_hdmi</i></a>
+    </div>
 </div>
 <br>
 <span id="loading">Loading...</span>
@@ -20,8 +24,6 @@
     border: 1px solid #555;
     display: inline-block;
     padding: 0px 4px 0px 4px !important;
-    margin: 6px;
-    cursor: pointer;
     border-radius: 5px;
 }
 .no-border {

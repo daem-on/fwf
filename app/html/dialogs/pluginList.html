@@ -1,0 +1,38 @@
+<script>window.$ = window.jQuery = require('../lib/jquery-3.3.1.min.js');</script>
+<link rel="stylesheet" type="text/css" href="../ui/ui.css">
+<link rel="stylesheet" type="text/css" href="../ui/tables.css">
+<div class="titlebar"></div>
+<div class="table-back">
+    <table id="list">
+    </table>
+</div>
+
+<style>
+.titlebar {
+    -webkit-app-region: drag;
+    height: 24px;
+}
+.table-back {
+    overflow-y: auto;
+    height: auto;
+    position:fixed !important;
+    position: absolute;
+    top: 24px;
+    bottom: 0;
+}
+</style>
+
+<script>
+const {ipcRenderer} = require('electron');
+
+ipcRenderer.on("plugin-list", (event, object) => {
+    var list = Object.keys(object);
+    for (var i = 0; i < list.length; i++) {
+        $("#list").append("<tr><td>" + list[i] + "</td></tr>")
+    }
+
+    $("td").on("click", function (e) {
+        ipcRenderer.send("openPlugin", this.innerHTML);
+    })
+})
+</script>

@@ -121,5 +121,6 @@ function add() {
         channel: "addFilter",
         value: editor.get(),
     });
+    require("electron").remote.getCurrentWindow().close();
 }
 </script>

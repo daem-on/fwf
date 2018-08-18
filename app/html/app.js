@@ -1,15 +1,22 @@
 var imported = []; // store for imported clips, source of truth for sourceManager
 var iid = 0; // last id assigned
 
-function getTitle(path) {
-    let exp;
+function registerPlugin() {
+    var pluginPath = dialog.showOpenDialog({
+        filters: [
+            {name: "JSON file", extensions: ["json"]}
+        ], multiSelections: false
+    });
+    if (pluginPath)
+        ipcRenderer.send("addPluginFromPackage", pluginPath[0]);
+}
 
-    // this is ridiculous
-    if (os.platform == "darwin") // forward slash
-        exp = RegExp(/\/([^/]*)\.\w*$/)
-    else if (os.platform == "win32") // backslash
-        exp = RegExp(/\\([^\\]*)\.\w*$/)
-    return exp.exec(path)[1];
+function pluginListWin() {
+    ipcRenderer.send("pluginListWin")
+}
+
+function openPlugin(plugin) {
+    ipcRenderer.send("openPlugin", plugin)
 }
 
 function over(s) {
@@ -22,36 +29,6 @@ function back(d) {
     return (d - new Date(1970, 0, 1)) / 1000;
 }
 
-let filterWin;
-function openFilterWindow() {
-    filterWin = new BrowserWindow({width: 800, height: 600,
-        title: "fwf: Filter editor", backgroundColor: "#20242B"})
-    filterWin.on('closed', () => {
-        filterWin = null
-    });
-    filterWin.loadFile("html/dialogs/addFilter.html");
-}
-
-let textWin;
-function openTextWindow() {
-    textWin = new BrowserWindow({width: 900, height: 550,
-        title: "fwf: Text editor", backgroundColor: "#20242B"})
-    textWin.on('closed', () => {
-        textWin = null
-    });
-    textWin.loadFile("html/dialogs/textEditor.html");
-}
-
-let schemeWin;
-function openSchemeWindow() {
-    schemeWin = new BrowserWindow({width: 800, height: 250,
-        title: "fwf: Scheme manager", backgroundColor: "#20242B"})
-    schemeWin.on('closed', () => {
-        schemeWin = null
-    });
-    schemeWin.loadFile("html/dialogs/schemeManager.html");
-}
-
 function addFilter(filter) {
     if (timeline.getSelection()[0]) {
         var old = getSelected().filters.slice();
@@ -59,7 +36,6 @@ function addFilter(filter) {
         timeline.changeItem(timeline.getSelection()[0].row,
         {filters: old})
         updateInspect();
-        filterWin.close();
     }
 }
 
@@ -89,9 +65,9 @@ function initRender() {
         });
     }
 
-    path = dialog.showSaveDialog();
-    if (!path) return;
-    ipcRenderer.send("setOutput", path);
+    spath = dialog.showSaveDialog();
+    if (!spath) return;
+    ipcRenderer.send("setOutput", spath);
     ipcRenderer.send("setWorkFiles", workFiles);
     ipcRenderer.send("make");
 }
@@ -125,12 +101,12 @@ ipcRenderer.on("meta", (event, arg) => {
             id: ++iid,
             duration: arg.format.duration,
             path: arg.format.filename,
-            title: getTitle(arg.format.filename),
+            title: path.basename(arg.format.filename),
         })
 })
 
-function addSourceByPath(path) {
-    ipcRenderer.send("getMeta", path);
+function addSourceByPath(spath) {
+    ipcRenderer.send("getMeta", spath);
 }
 
 function openFile() {
