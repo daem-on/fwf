@@ -9,6 +9,8 @@ let splash;
 app.on('ready', () => {
     showSplash();
     createWindow();
+    pluginMan.mainWindow = win;
+    pluginMan.createListWindow();
     win.once('ready-to-show', () => {
         splash.destroy();
 		splash = null;
@@ -27,19 +29,21 @@ function createWindow () {
 
     win.loadFile('html/index.html')
     win.on('closed', () => {
-        win = null
+        win = null;
+        pluginMan.listWindow = null;
     })
 }
 
 app.on('window-all-closed', function () {
-        app.quit()
-    })
+    app.quit()
+})
 
 ipcMain.on('showSplash', (event, arg) => {
     showSplash();
 })
 
 const VideoManager = require("./videoManager.js")
+const PluginManager = require("./plugins.js")
 const PreviewServer = require("./previewServer.js")
 
 var path = app.getAppPath().replace('app.asar', 'app.asar.unpacked');
@@ -81,8 +85,18 @@ vidManager.scheme = {
     pad: true
 }
 
+var pluginMan = new PluginManager();
+
+// Plugins
+
+ipcMain.on('pluginListWin', () => {
+    pluginMan.listWindow.show();
+})
+ipcMain.on('openPlugin', (event, arg) => {
+    pluginMan.openPlugin(arg);
+})
+
 let server = new PreviewServer(vidManager);
-let schemeWin;
 
 // Settings for preview server
 

@@ -1,5 +1,8 @@
+const fs = require("fs");
+const {app, BrowserWindow} = require("electron");
+
 class PluginManager {
-    constructor() {
+    constructor(mainWindow) {
         this.pluginList = {};
         this.windowList = [];
 
@@ -64,11 +67,37 @@ class PluginManager {
         var pluginWindow = new BrowserWindow({
             width: this.pluginList[name].width,
             height: this.pluginList[name].height,
-            title: "fwf: Plugin window", backgroundColor: "#20242B"});
+            parent: this.mainWindow,
+            title: "fwf: " + name, backgroundColor: "#20242B"});
         this.windowList.push(pluginWindow);
         pluginWindow.on('closed', () => {
             pluginWindow = null
         });
         pluginWindow.loadFile(this.pluginList[name].path);
     }
+
+    createListWindow(mainWindow) {
+        this.listWindow = new BrowserWindow({
+            width: 270,
+            height: 280,
+            title: "fwf: Plugins",
+            backgroundColor: "#20242B",
+            minimizable: false,
+            maximizable: false,
+            parent: this.mainWindow,
+            show: false,
+            thickFrame: false,
+            titleBarStyle: "hidden",
+        });
+        this.listWindow.on('close', (event) => {
+            event.preventDefault();
+            this.listWindow.hide();
+        });
+        this.listWindow.webContents.on('did-finish-load', () => {
+            this.listWindow.webContents.send('plugin-list', this.pluginList);
+        });
+        this.listWindow.loadFile("html/dialogs/pluginList.html");
+    }
 }
+
+module.exports = PluginManager;
