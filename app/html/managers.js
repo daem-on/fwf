@@ -24,7 +24,7 @@ var inspectorManager = new Vue({
         },
         setSeek: function() {
             seek = parseInt(this.properties.seek)
-            delta = seek - getSelected().seek;
+            delta = seek - (getSelected().seek | 0);
             this.setProperty("seek", seek);
             timeline.changeItem(timeline.getSelection()[0].row, {
                 start: over(back(getSelected().start) + delta)
