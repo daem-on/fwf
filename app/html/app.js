@@ -24,6 +24,27 @@ function back(d) {
 
 var pluginMan = new PluginManager();
 
+// Window for browsing plugins
+var pluginListWin = new BrowserWindow({
+    width: 400,
+    height: 500,
+    title: "fwf: Plugins",
+    backgroundColor: "#20242B",
+    minimizable: false,
+    maximizable: false,
+    parent: remote.getCurrentWindow(),
+    show: false,
+    thickFrame: false
+});
+pluginListWin.on('close', (event) => {
+    event.preventDefault();
+    pluginListWin.hide();
+});
+pluginListWin.webContents.on('did-finish-load', () => {
+    pluginListWin.webContents.send('plugin-list', pluginMan.pluginList);
+});
+pluginListWin.loadFile("html/dialogs/pluginList.html");
+
 function addFilter(filter) {
     if (timeline.getSelection()[0]) {
         var old = getSelected().filters.slice();

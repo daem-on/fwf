@@ -1,0 +1,19 @@
+<script>window.$ = window.jQuery = require('../lib/jquery-3.3.1.min.js');</script>
+<link rel="stylesheet" type="text/css" href="../ui/ui.css">
+<link rel="stylesheet" type="text/css" href="../ui/tables.css">
+<div class="table-back">
+    <table id="list">
+
+    </table>
+</div>
+
+<script>
+const {ipcRenderer} = require('electron');
+
+ipcRenderer.on("plugin-list", (event, object) => {
+    var list = Object.keys(object);
+    for (var i = 0; i < list.length; i++) {
+        $("#list").append("<tr><td>" + list[i] + "</td></tr>")
+    }
+})
+</script>
