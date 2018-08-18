@@ -1,5 +1,5 @@
 # fwf: FFmpeg video editor
-![main screenshot](https://imgur.com/2HTMBua.png)
+![main screenshot](https://i.imgur.com/ZKp3CaW.png)
 
 Video editing software in JavaScript, made with Electron, on top of FFmpeg using [fluent-ffmpeg](https://github.com/fluent-ffmpeg/node-fluent-ffmpeg). Provides a simple GUI for editing videos with FFmpeg with a timeline, preview, and filter editor.
 
@@ -16,4 +16,4 @@ JSON editor GUI using [jsoneditor](https://github.com/josdejong/jsoneditor/), wi
 ### License
 Released under the MIT license, see LICENSE.
 
-![filter editor screenshot](https://imgur.com/eYh7yqY.png)
+![splash](https://imgur.com/eYh7yqY.png)
