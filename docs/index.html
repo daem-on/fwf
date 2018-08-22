@@ -1,0 +1,161 @@
+<head>
+    <title>fwf - HTML video editor</title>
+</head>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,700" rel="stylesheet">
+<style>
+    body {
+        font-family: "Source Sans Pro";
+        margin: 0;
+    }
+    h1 {
+        font-weight: 200;
+        font-size: 400%;
+        margin: 0;
+    }
+    #hero {
+        padding-top: 70px;
+        width: 100%;
+        /* background: linear-gradient(to right, #26cc71 0%,#37664f 100%); */
+        text-align: center;
+    }
+    #hero > span {
+        font-weight: 700;
+        font-size: 200%;
+    }
+    img {
+        width: 100%;
+        max-width: 1191px;
+    }
+    .feature-desc {
+        width: 60%;
+        padding-left: 20%;
+        margin-top: 8em;
+    }
+    .feature-desc > h2 {
+        font-weight: 700;
+        margin: 0.5em 0 0 0;
+    }
+    .feature-desc > p {
+        margin-top: 0.5em;
+        font-weight: 400;
+        font-size: 130%;
+    }
+    .material-icons {
+        position: relative;
+        top: 5px;
+        padding-right: 4px;
+    }
+    .righty {
+        text-align: right;
+    }
+    .new {
+        background: orange;
+        border-radius: 5px;
+        font-size: 70%;
+        color: white;
+        font-weight: 400;
+        padding: 0 5px 0 5px;
+    }
+    #footer {
+        margin-top: 8em;
+        padding: 3em 0 3em 15%;
+        background: #151515;
+        color: white;
+    }
+    #footer > h2 {
+        margin: 0;
+        font-weight: 200;
+    }
+    #hero a {
+        font-weight: 400;
+        font-size: 200%;
+    }
+    a {
+        color: #2196f3;
+        text-decoration: none;
+    }
+    #header {
+        padding: 1em 0 1em 20%;
+        background: #151515;
+        color: white;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    #header > a {
+        flex: 1;
+        flex-grow: 0;
+        padding: 0 10px 0 10px;
+        color: white;
+    }
+</style>
+<body>
+    <div id="header">
+        <a href="https://github.com/daem-on/fwf/releases/latest">Download</a>
+        <a href="https://github.com/daem-on/fwf">Github</a>
+        <a href="press">Documentation</a>
+    </div>
+    <div id="hero">
+        <span>fwf</span>
+        <h1>a simple javascript video editor with ffmpeg</h1>
+        <img src="https://i.imgur.com/ZKp3CaW.png"></img>
+        <p>
+            <a href="https://github.com/daem-on/fwf/releases/latest">Download now</a>
+        </p>
+    </div>
+    <div class="feature-desc">
+        <h2>FFMpeg at core</h2>
+        <p>This application uses FFMpeg, a widely used transcoding and video
+            manipulation software suite, through the fluent-ffmpeg library.
+            FFMpeg is also open source and has been actively developed and
+            improved since 2000.
+        </p>
+    </div>
+    <div class="feature-desc righty">
+        <h2>Simplistic editor</h2>
+        <p>fwf provides you with simple controls to do the most basic editing
+            tasks, like arranging clips in the timeline, cutting, splitting
+            and seeking. For more advanced tasks, like mirroring the image
+            or adding a tint, a filter editor is provided.
+        </p>
+    </div>
+    <div class="feature-desc">
+        <h2>Incredibly powerful filters</h2>
+        <p>fwf enables you to use any of the filters supported by FFMpeg, which
+            means you have access to a vast library of very powerful effects, from
+            adding text to your clip to advanced video stabilization.
+        </p>
+    </div>
+    <div class="feature-desc righty">
+        <h2>Extensibility <span class="new">new</span></h2>
+        <p>fwf now supports third party plugins, that from the user's perspective
+            function just like the built-in filter and text editors. This makes
+            it possible for developers to make any kind of editor they want, and
+            easily add it to fwf.
+        </p>
+    </div>
+    <div class="feature-desc">
+        <h2>Fully open source</h2>
+        <p>The project's source code is available on GitHub and it only uses open
+            source libraries, such as fluent-ffmpeg, CHAP Links and many more.
+        </p>
+    </div>
+    <div class="feature-desc righty">
+        <h2>Live preview</h2>
+        <p>With the project's architecture it was hard to implement a working
+            preview of the movie. The current preview feature makes it quick and
+            easy to see what the selected clip would look like, however, it is
+            still limited. We are working to improve this feature.
+        </p>
+    </div>
+    <div class="feature-desc">
+        <h2>Beautiful interface with HTML</h2>
+        <p>The user interface is written in HTML, the application in Javascript,
+            languages of the web. It runs in Electron, the standard in making
+            web apps run like native applications.
+        </p>
+    </div>
+    <div id="footer">
+        <h2>fwf is an open source project by Csongor Zih</h2>
+    </div>
+</body>
