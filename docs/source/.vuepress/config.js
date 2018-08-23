@@ -1,5 +1,5 @@
 module.exports = {
-    base: "/press/",
+    base: "/fwf/press/",
     title: "fwf documentation",
     description: "for the HTML video editor",
     dest: "../press",
