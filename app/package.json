@@ -10,7 +10,8 @@
     "license": "ISC",
     "devDependencies": {
         "electron": "^2.0.2",
-        "electron-builder": "^20.19.2"
+        "electron-builder": "^20.19.2",
+        "stream-stream": "^1.2.6"
     },
     "dependencies": {
         "body-parser": "^1.18.3",

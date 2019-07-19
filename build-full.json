@@ -6,7 +6,7 @@
         "bin"
     ],
     "mac": {
-        "target": "dir",
+        "target": "dmg",
         "files": [
             "bin/darwin"
         ]

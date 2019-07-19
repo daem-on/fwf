@@ -15,6 +15,37 @@ function preview() {
     setSource("http://localhost:4000/filtered");
 }
 
+// preview including all clips
+function previewMulti() {
+    var renderArray = tldata.slice();
+    var customTimeDate = timeline.getCustomTime();
+    var customTime = back(customTimeDate);
+    var workFiles = [];
+    renderArray.sort(tlCompare);
+
+    // convert timeline data to workFile array
+    for (var i = 0; i < renderArray.length; i++) {
+
+        // if it's too early, skip it
+        if (renderArray[i].end < customTimeDate)
+            continue;
+
+        workFiles.push({
+            file: renderArray[i].path,
+            properties: {
+                duration: (renderArray[i].end - renderArray[i].start) / 1000,
+                seek: renderArray[i].seek || 0,
+                filters: renderArray[i].filters,
+            }
+        });
+    }
+
+    ipcRenderer.send("previewSettings", workFiles);
+    console.log(workFiles);
+
+    setSource("http://localhost:4000/multi");
+}
+
 var timer, video, startTime = 0;
 
 function incrementCustom() {

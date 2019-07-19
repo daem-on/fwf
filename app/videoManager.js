@@ -143,18 +143,31 @@ class VideoManager {
     renderPreview(options, stream) {
         return new Promise((resolve, reject) => {
             var command = ffmpeg()
+            var duration = options.duration || 10;
             if (options.filters) command.videoFilters(options.filters);
+            var s;
 
             command.input(options.path)
-            .on("end", resolve)
+            .on("end", () => {
+                console.log("unpiping now")
+                s.unpipe(stream);
+                resolve()
+            })
             .on("error", reject)
-            .duration(10)
+            .duration(duration)
             .size("480x?")
             .format("mp4")
             .outputOptions('-movflags frag_keyframe+empty_moov') // seekability magic
             .videoCodec("libx264")
             .seekInput(options.seek)
-            .pipe(stream, {end:true});
+
+            s = fs.createReadStream(options.path);
+            //s.pipe(stream);
+            stream.write(s);
+            s.on("end", () => {
+                console.log("ended, apparently")
+                resolve()
+            })
         })
     }
 
