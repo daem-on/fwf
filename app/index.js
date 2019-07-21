@@ -52,6 +52,7 @@ var workdir = app.getPath("userData");
 var masterDir = workdir + "/master";
 
 if (!fs.existsSync(masterDir)){
+    if (!fs.existsSync(workdir)) fs.mkdirSync(workdir);
     fs.mkdirSync(masterDir);
 }
 
