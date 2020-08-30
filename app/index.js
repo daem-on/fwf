@@ -58,22 +58,23 @@ if (!fs.existsSync(masterDir)){
 
 var vidManager;
 
-if (os.platform() == "darwin") {
-    console.log(path + "/bin/darwin/ffmpeg");
-    vidManager = new VideoManager(
-        path + "/bin/darwin/ffmpeg",
-        path + "/bin/darwin/ffprobe",
-        workdir);
-} else if (os.platform() == "win32" && os.arch() == "x64") {
-    vidManager = new VideoManager(
-        path + "/bin/win64/ffmpeg.exe",
-        path + "/bin/win64/ffprobe.exe",
-        workdir);
-} else {
-    dialog.showErrorBox(
-        "System not supported",
-        "This platform or architecture is currently not supported."
-    );
+try {
+    if (os.platform() == "darwin") {
+        console.log(path + "/bin/darwin/ffmpeg");
+        vidManager = new VideoManager(
+            path + "/bin/darwin/ffmpeg",
+            path + "/bin/darwin/ffprobe",
+            workdir);
+    } else if (os.platform() == "win32" && os.arch() == "x64") {
+        vidManager = new VideoManager(
+            path + "/bin/win64/ffmpeg.exe",
+            path + "/bin/win64/ffprobe.exe",
+            workdir);
+    } else {
+        throw new Error("This platform or architecture is currently not supported.");
+    }
+} catch (err) {
+    dialog.showErrorBox("Error while creating ffmpeg handler:", err.message);
     app.quit();
 }
 
@@ -127,6 +128,7 @@ ipcMain.on('setOutput', (event, arg) => {
 ipcMain.on('getMeta', (event, arg) => {
     vidManager.getMeta(arg, (err, meta) => {
         if (!err) event.sender.send("meta", meta);
+        else dialog.showErrorBox("Meta get error:", err);
     });
 })
 

@@ -5,6 +5,8 @@ class VideoManager {
     constructor(path1=null, path2=null, workdir) {
         if (path1) ffmpeg.setFfmpegPath(path1);
         if (path2) ffmpeg.setFfprobePath(path2);
+        this.checkBinsExist(path1, path2);
+
         this.wd = workdir; // working directory, master files in subdirectory master
         this.scheme = {}; // common properties that all master files are rendered with
         this.masterOutput = this.wd + "masterOutput";
@@ -13,6 +15,12 @@ class VideoManager {
         this.masterFiles = []; // list of processed "master" files
 
         this.postProcessing = []; // TBA
+    }
+
+    checkBinsExist(path1, path2) {
+        if (fs.existsSync(path1) && fs.existsSync(path2))
+            return;
+        else throw new Error("Binary not installed!");
     }
 
     getMeta(path, callback) {

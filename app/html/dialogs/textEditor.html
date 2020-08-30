@@ -61,6 +61,8 @@ a {
 <script>
 const {ipcRenderer, clipboard} = require('electron');
 var ctx = document.getElementById('canvas').getContext('2d');
+var fullSize = document.createElement("canvas");
+fsctx = fullSize.getContext("2d");
 
 window.addEventListener("keyup", redraw)
 window.addEventListener("mouseup", redraw)
@@ -70,8 +72,10 @@ img.src = '../res/sample.jpg';
 
 img.onload = redraw;
 
-var h = 400;
-var w = 600;
+var h = 720;
+var w = 1280;
+var dh = 270;
+var dw = 480;
 setDimensions();
 
 function getVal(id) {
@@ -79,23 +83,27 @@ function getVal(id) {
 }
 
 function setDimensions() {
-    var canvas = document.getElementById('canvas');
-    canvas.height = h;
-    canvas.width = w;
+    fullSize.height = h;
+    fullSize.width = w;
+    var canvas = document.getElementById("canvas")
+    canvas.height = dh;
+    canvas.width = dw;
 }
 
 function redraw() {
-    ctx.drawImage(img, 0, 0, w, h)
-    ctx.fillStyle = getVal("color")
-    ctx.font = getVal("size") + "px " + getVal("font");
-    ctx.fillText(getVal("text"), getVal("x"), getVal("y"))
+    fsctx.drawImage(img, 0, 0, w, h)
+    fsctx.fillStyle = getVal("color")
+    fsctx.font = getVal("size") + "px " + getVal("font");
+    fsctx.textBaseline = "hanging";
+    fsctx.fillText(getVal("text"), getVal("x"), getVal("y"));
+    ctx.drawImage(fullSize, 0, 0, dw, dh);
 }
 
 function add() {
     var filter = {
         filter: "drawtext",
         options: {
-            fontfile: getVal("fontfile"),
+            fontfile: getVal("fontfile").replace(/\\/g, "/"),
             text: getVal("text"),
             fontsize: getVal("size"),
             x: getVal("x"),
