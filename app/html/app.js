@@ -2,7 +2,7 @@ var imported = []; // store for imported clips, source of truth for sourceManage
 var iid = 0; // last id assigned
 
 function registerPlugin() {
-    var pluginPath = dialog.showOpenDialog({
+    var pluginPath = dialog.showOpenDialogSync({
         filters: [
             {name: "JSON file", extensions: ["json"]}
         ], multiSelections: false
@@ -65,7 +65,7 @@ function initRender() {
         });
     }
 
-    spath = dialog.showSaveDialog();
+    spath = dialog.showSaveDialogSync();
     if (!spath) return;
     ipcRenderer.send("setOutput", spath);
     ipcRenderer.send("setWorkFiles", workFiles);
@@ -110,7 +110,7 @@ function addSourceByPath(spath) {
 }
 
 function openFile() {
-    var array = dialog.showOpenDialog({
+    var array = dialog.showOpenDialogSync({
         properties: ['openFile', 'multiSelections'],
         title: 'Add a source'
     })
@@ -138,7 +138,7 @@ function save() {
         tldata: tldata,
     }
 
-    var savePath = dialog.showSaveDialog({
+    var savePath = dialog.showSaveDialogSync({
         filters: [
             {name: "fwf Project", extensions: ["fwf"]},
             {name: "JSON file", extensions: ["json"]}
@@ -154,7 +154,7 @@ function save() {
 }
 
 function load() {
-    var openPath = dialog.showOpenDialog({
+    var openPath = dialog.showOpenDialogSync({
         filters: [
             {name: "fwf Project", extensions: ["fwf"]},
             {name: "JSON file", extensions: ["json"]}
