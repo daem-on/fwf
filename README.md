@@ -26,9 +26,9 @@ This was an experiment to see if a consumer grade video editor is possible to ma
 If you would like to use it anyway, you're free to do so. If you would like to help out with the development, PRs are greatly appreciated.
 
 ### Running and building from source
-To run from source, clone this repository, and inside the ´app/´ directory, install the dependencies with ´npm install´ or ´yarn´. You have to provide your own ffmpeg binaries for running and building, so download the ´ffmpeg´ **and** ´ffprobe´ executables from an ffmpeg distribution of your choice. Both executables are required. You then place these inside ´app/bin/´ in a folder matching your architecture: by default, *darwin* and *win64* are supported. This is detected in ´app/index.js´, so if your architecture is not *darwin* or *win64* you have to modify that file otherwise it won't start. Then you run ´npm run start´ or ´yarn start´ inside ´app/´ to start fwf.
+To run from source, clone this repository, and inside the `app/` directory, install the dependencies with `npm install` or `yarn`. You have to provide your own ffmpeg binaries for running and building, so download the `ffmpeg` **and** `ffprobe` executables from an ffmpeg distribution of your choice. Both executables are required. You then place these inside `app/bin/` in a folder matching your architecture: by default, *darwin* and *win64* are supported. This is detected in `app/index.js`, so if your architecture is not *darwin* or *win64* you have to modify that file otherwise it won't start. Then you run `npm run start` or `yarn start` inside `app/` to start fwf.
 
-Build with electron-builder using ´app/node_modules/.bin/electron-builder´. The build process is quite complicated, because of the fact that the ffmpeg binaries need to be available at runtime, so there are a lot of ways it can go wrong.
+Build with electron-builder using `app/node_modules/.bin/electron-builder` in the root directory. The build setup is quite complicated, because of the fact that the ffmpeg binaries need to be available at runtime, so there are a lot of ways it can go wrong.
 
 ### License
 Released under the MIT license, see LICENSE.
