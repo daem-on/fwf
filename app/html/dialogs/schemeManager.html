@@ -87,9 +87,8 @@ function apply() {
         codec: $("#codec")[0].value,
         bitrate: $("#bitrate")[0].value,
         fps: $("#fps")[0].value,
+        pad: ($("#resize")[0].value == "pad")
     }
-    if ($("#resize")[0].value == "pad") scheme.pad = true;
-    else scheme.pad = false;
 
     ipcRenderer.send("setScheme", scheme);
     remote.getCurrentWindow().close();
