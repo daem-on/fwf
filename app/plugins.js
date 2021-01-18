@@ -71,7 +71,8 @@ class PluginManager {
             height: this.pluginList[name].height,
             parent: this.mainWindow,
             title: "fwf: " + name,
-            backgroundColor: "#20242B"
+            backgroundColor: "#20242B",
+            webPreferences: {nodeIntegration: true, enableRemoteModule: true}
         });
         this.windowList.push(pluginWindow);
         pluginWindow.on('closed', () => {
@@ -93,6 +94,7 @@ class PluginManager {
             show: false,
             thickFrame: false,
             titleBarStyle: "hidden",
+            webPreferences: {nodeIntegration: true, enableRemoteModule: true}
         });
         this.listWindow.on('close', (event) => {
             event.preventDefault();

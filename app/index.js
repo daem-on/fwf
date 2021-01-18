@@ -25,7 +25,8 @@ function showSplash() {
 }
 
 function createWindow () {
-    win = new BrowserWindow({width: 1000, height: 800, show: false, title: "fwf"})
+    win = new BrowserWindow({width: 1000, height: 800, show: false, title: "fwf",
+    webPreferences: {nodeIntegration: true, enableRemoteModule: true}})
 
     win.loadFile('html/index.html')
     win.on('closed', () => {
@@ -75,7 +76,7 @@ try {
     }
 } catch (err) {
     dialog.showErrorBox("Error while creating ffmpeg handler:", err.message);
-    app.quit();
+    app.exit(1);
 }
 
 vidManager.scheme = {
